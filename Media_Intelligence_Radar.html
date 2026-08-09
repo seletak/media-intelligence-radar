@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Media Intelligence Radar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+.radar-root{
+  --ink-950:#0A0E13; --ink-900:#10151C; --ink-800:#1A212B; --ink-700:#242D39;
+  --ink-600:#3A4553;
+  --amber:#E8B94B; --amber-dim:#8A6D2B; --amber-bg:#3A2E12;
+  --red:#FF6B5E; --red-bg:#3E1B18;
+  --orange:#FFA85C; --orange-bg:#3E2913;
+  --green:#5FD9A0; --green-bg:#123425;
+  --blue:#6FB3E0; --blue-bg:#132a3a;
+  --text-hi:#EDF1F5; --text-mid:#9BA8B4; --text-low:#5D6975;
+  font-family:'Inter',sans-serif; background:var(--ink-950); color:var(--text-hi);
+  border-radius:14px; overflow:hidden; border:1px solid var(--ink-700);
+}
+.radar-root *{box-sizing:border-box;}
+.rd-mono{font-family:'IBM Plex Mono',monospace;}
+.rd-disp{font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.03em;}
+.radar-root select,.radar-root input,.radar-root textarea{
+  background:var(--ink-800); color:var(--text-hi); border:1px solid var(--ink-600);
+  border-radius:6px; padding:6px 8px; font-family:'Inter',sans-serif; font-size:12px;
+}
+.radar-root select:focus,.radar-root input:focus,.radar-root textarea:focus{outline:1px solid var(--amber);}
+.radar-root button{
+  background:var(--ink-800); color:var(--text-hi); border:1px solid var(--ink-600);
+  border-radius:6px; padding:7px 12px; font-family:'Inter',sans-serif; font-size:12px;
+  font-weight:500; cursor:pointer;
+}
+.radar-root button:hover{border-color:var(--amber-dim); background:var(--ink-700);}
+.radar-root button.primary{background:var(--amber); color:#241B05; border-color:var(--amber); font-weight:600;}
+.radar-root button.primary:hover{background:#F2C766;}
+.radar-root button.danger{color:var(--red);}
+.radar-root [contenteditable]:focus{outline:1px solid var(--amber); border-radius:4px;}
+.rd-fieldgrid{display:grid; grid-template-columns:1fr 1fr; gap:0 20px;}
+.rd-toolbar select,.rd-toolbar input{min-height:36px;}
+.rd-controls > div{min-width:120px;}
+@media (max-width:560px){
+  .radar-root{border-radius:0;}
+  #rd-header{padding:14px 14px 12px; flex-wrap:wrap;}
+  #rd-header > div:last-child{text-align:left; width:100%;}
+  #rd-lastupdate{width:140px;}
+  #rd-tabs{padding:0 10px;}
+  #rd-tabs button{padding:10px 10px; font-size:11.5px;}
+  #rd-body{padding:14px 14px 20px;}
+  .rd-fieldgrid{grid-template-columns:1fr !important; gap:0 !important;}
+  .rd-toolbar{flex-direction:column; align-items:stretch !important;}
+  .rd-toolbar select,.rd-toolbar input,.rd-toolbar button{width:100%;}
+  .rd-controls{flex-direction:column; align-items:stretch !important;}
+  .rd-controls > div{width:100%;}
+  .rd-controls select,.rd-controls input{width:100%;}
+  .rd-toolbar-end button{width:100%;}
+  .radar-root button{min-height:38px;}
+  .rd-toolbar input,.rd-toolbar select,.rd-toolbar button{flex:none !important;}
+  html,body{overflow-x:hidden;}
+  .rd-frentetable-row{grid-template-columns:1.5fr 0.5fr 0.5fr 0.5fr 0.5fr !important; padding:8px 8px !important; font-size:10.5px !important; column-gap:2px !important;}
+  .rd-kpigrid{grid-template-columns:repeat(2,1fr) !important; gap:8px !important;}
+  .rd-kpigrid > div{padding:12px 12px !important;}
+}
+@media (max-width:400px){
+  .rd-frentetable-row{grid-template-columns:1.3fr 0.5fr 0.5fr 0.5fr 0.5fr !important; font-size:10px !important;}
+}
+.badge{display:inline-flex; align-items:center; padding:3px 9px; border-radius:20px; font-size:10.5px; font-weight:600; letter-spacing:.03em; white-space:nowrap;}
+.b-high{background:var(--red-bg); color:var(--red);}
+.b-medium{background:var(--orange-bg); color:var(--orange);}
+.b-low{background:var(--green-bg); color:var(--green);}
+.b-frente{background:var(--ink-700); color:var(--text-mid);}
+.rd-minicard{cursor:pointer; transition:background .12s, border-color .12s;}
+.rd-minicard:hover{background:var(--ink-800) !important; border-color:var(--amber-dim) !important;}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#0A0E13;">
+
+
+<div class="radar-root">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;">Media Intelligence and Opportunity Radar dashboard for a media agency, tracking opportunities across sports rights, TV, streaming, retail media and other media channels.</h2>
+
+  <div id="rd-header" style="padding:18px 22px 14px; border-bottom:1px solid var(--ink-700); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" fill="none" stroke="var(--ink-600)" stroke-width="1"/>
+        <circle cx="15" cy="15" r="8.5" fill="none" stroke="var(--ink-600)" stroke-width="1"/>
+        <circle cx="15" cy="15" r="1.6" fill="var(--amber)"/>
+        <g id="rd-sweep" style="transform-origin:15px 15px;">
+          <path d="M15 15 L15 2 A13 13 0 0 1 24.19 5.81 Z" fill="var(--amber)" opacity="0.5"/>
+        </g>
+      </svg>
+      <div>
+        <div class="rd-disp" style="font-size:19px; font-weight:700; color:var(--text-hi); line-height:1;">Media intelligence radar</div>
+        <div class="rd-mono" style="font-size:10.5px; color:var(--text-low); margin-top:4px;">RADAR ESTRATEGICO DE MIDIA, PUBLICIDADE E ENTRETENIMENTO</div>
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <div class="rd-mono" style="font-size:10px; color:var(--text-low); text-transform:uppercase; letter-spacing:.05em;">Ultimo scan</div>
+      <input type="text" id="rd-lastupdate" class="rd-mono" style="text-align:right; width:110px; font-size:12px; padding:4px 6px; margin-top:2px;" />
+    </div>
+  </div>
+
+  <style>
+    @media (prefers-reduced-motion: no-preference){
+      #rd-sweep{ animation: rd-spin 4s linear infinite; }
+    }
+    @keyframes rd-spin{ to{ transform:rotate(360deg); } }
+  </style>
+
+  <div id="rd-tabs" style="display:flex; gap:2px; padding:0 22px; border-bottom:1px solid var(--ink-700); overflow-x:auto;">
+  </div>
+
+  <div id="rd-body" style="padding:20px 22px 24px; min-height:200px;">
+  </div>
+</div>
+
+<script>
+(function(){
+  var FRENTES = ["Esportes","TV & Entretenimento","Digital & Streaming/CTV","OOH/DOOH","Retail Media","Audio","Gaming/E-sports","Novos Players/AdTech"];
+  var STATUSES = ["Rumor","Anunciado","Em negociacao","Em comercializacao","Cotas vendidas","Confirmado"];
+  var STAGES = ["EARLY SIGNAL","ANNOUNCED","COMMERCIALIZATION","SOLD"];
+  var PRIORITIES = ["HIGH","MEDIUM","LOW"];
+
+  var seedPipeline = [
+    {id:1, data:"09/08/2026", frente:"TV & Entretenimento", propriedade:"Veto de bets no BBB 27", veiculo:"Rede Globo",
+     oQueAconteceu:"Globo estuda proibir patrocinio de casas de apostas no BBB a partir de jan/2027, apos reclassificacao indicativa do BBB 26 pelo Ministerio da Justica.",
+     porQueImporta:"Abre a maior cota master da TV aberta brasileira (BBB faturou +R$1 bi em publicidade na ultima edicao) para categorias fora de bets.",
+     oportunidade:"Fintechs, bancos, telecom, e-commerce e bebidas podem disputar a cota master sem concorrencia direta do setor de apostas.",
+     formato:"Cota master / patrocinio de dinamicas / acao testemunhal", periodo:"Comercializacao esperada 4T2026",
+     status:"Em negociacao", estagio:"EARLY SIGNAL", prioridade:"HIGH", anunciante:"Bancos; Fintechs; Telecom; E-commerce; Bebidas",
+     acao:"Antecipar contato com diretoria comercial da Globo antes da abertura formal da cota.",
+     fonte:"Meio & Mensagem / Folha SP (via BNLData)", dataFonte:"Jul/2026"},
+    {id:2, data:"09/08/2026", frente:"TV & Entretenimento", propriedade:"Paiol de A Fazenda 18 condicionado a patrocinio", veiculo:"Record",
+     oQueAconteceu:"Record so reativa a dinamica do Paiol (disputa por vaga pre-estreia) se fechar patrocinio especifico, mirando marcas de redes sociais/video curto.",
+     porQueImporta:"Produto comercial isolado e ownable por uma unica marca, com pico de conversa social antes da estreia oficial.",
+     oportunidade:"Plataformas de video curto, apps de engajamento/voto e marcas de entretenimento digital podem comprar exclusividade total do formato.",
+     formato:"Patrocinio exclusivo de dinamica / ativacao digital", periodo:"Estreia 14/09/2026",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"Social/Video platforms; Apps de entretenimento",
+     acao:"Contato imediato com a Record -- inventario so existe se um patrocinador comprar antes da estreia.",
+     fonte:"Terra / RD1", dataFonte:"Jun/2026"},
+    {id:3, data:"09/08/2026", frente:"Digital & Streaming/CTV", propriedade:"Netflix leva branded content nativo para producoes nacionais", veiculo:"Netflix",
+     oQueAconteceu:"Netflix expande o modelo de integracao de marca dentro de producoes brasileiras (ex.: Ambev/Brahma em Brasil 70 - A Saga do Tri), com curadoria do time de Parcerias de Marketing.",
+     porQueImporta:"Product placement estrategico com apoio criativo da propria Netflix, aplicado a conteudo nacional -- maior afinidade cultural que integracoes globais.",
+     oportunidade:"Bebidas, automotivo, moda, viagem e FMCG com fit narrativo em producoes do catalogo nacional.",
+     formato:"Branded content / product placement narrativo", periodo:"Em comercializacao continua",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"HIGH", anunciante:"Bebidas; Automoveis; Moda; Travel; FMCG",
+     acao:"Solicitar pipeline de producoes nacionais em desenvolvimento para 2027 e avaliar exclusividade de categoria.",
+     fonte:"Tela Viva News", dataFonte:"04/08/2026"},
+    {id:4, data:"09/08/2026", frente:"Digital & Streaming/CTV", propriedade:"Netflix Ads Brasil: 35 mi usuarios/mes + clean room + Amazon", veiculo:"Netflix",
+     oQueAconteceu:"Netflix Ads Brasil atinge 35 milhoes de espectadores ativos/mes (+20% vs 2025); integracao programatica via Amazon chega em junho; clean room com Kantar/Nielsen prevista para o 2S26.",
+     porQueImporta:"Muda o streaming de complemento para canal de massa mensuravel, competindo diretamente com TV aberta.",
+     oportunidade:"Categorias que hoje evitam CTV por falta de mensuracao ganham argumento de compra com clean room + integracao Amazon.",
+     formato:"Programmatic CTV / audience-based buying / data clean room", periodo:"2S 2026",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"Qualquer categoria com necessidade de mensuracao full-funnel",
+     acao:"Avaliar piloto de CTV programatico com clean room ainda no 2S26.",
+     fonte:"AdTrend / Meio & Mensagem", dataFonte:"23/05/2026"},
+    {id:5, data:"09/08/2026", frente:"Esportes", propriedade:"Serie B do Brasileirao amplia para 6 emissoras", veiculo:"Globo, Disney, RedeTV!, Xsports, Goat, SportyNet",
+     oQueAconteceu:"Direitos da Serie B 2026 se fragmentaram de 2 para 6 emissoras; Disney detem 342 partidas (228 exclusivas).",
+     porQueImporta:"Cria inventario esportivo novo, mais acessivel e menos disputado que a Serie A -- bom ponto de entrada para marcas regionais/challenger.",
+     oportunidade:"Marcas locais/regionais, categorias emergentes e challengers de categoria podem comprar cotas com CPM mais baixo.",
+     formato:"Cota de patrocinio / breaks / merchandising", periodo:"A partir de 21/03/2026",
+     status:"Confirmado", estagio:"ANNOUNCED", prioridade:"MEDIUM", anunciante:"Marcas regionais; Challengers de categoria; Varejo local",
+     acao:"Solicitar media kit da Disney e demais emissoras para avaliar CPM e exclusividade por categoria.",
+     fonte:"CNN Brasil (via Maquina do Esporte)", dataFonte:"04/03/2026"},
+    {id:6, data:"09/08/2026", frente:"Retail Media", propriedade:"Unlimitail integra DOOH/in-store media via parceria com JCDecaux", veiculo:"Unlimitail",
+     oQueAconteceu:"Unlimitail passa a oferecer DOOH/OOH dentro do mesmo pacote de ativacao e mensuracao de retail media, com deploy completo previsto ate a volta as aulas 2026.",
+     porQueImporta:"Primeira oferta relevante no Brasil que unifica retail media digital + midia fisica em loja com mensuracao unica.",
+     oportunidade:"Categorias de FMCG, beleza e eletronicos podem testar campanhas omnichannel medidas ponta a ponta.",
+     formato:"Retail media network + DOOH / in-store media", periodo:"Deploy completo ate back-to-school 2026",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"FMCG; Beleza; Eletronicos",
+     acao:"Solicitar case/piloto da integracao Unlimitail + JCDecaux antes da concorrencia testar o formato.",
+     fonte:"Retail Media News", dataFonte:"18/12/2025"}
+  ];
+
+  var seedLog = [
+    {id:1, data:"09/08/2026", frente:"Esportes", movimento:"Brasileirao 2026 consolida modelo fragmentado Libra x LFU ate 2029; Globo detem direitos nos dois blocos, LFU soma Record/Prime Video/Caze TV.", fonte:"O Tempo / Cassio Zirpoli", dataFonte:"28/01/2026", virouOportunidade:"N"},
+    {id:2, data:"09/08/2026", frente:"Esportes", movimento:"Copa do Mundo 2026 encerrada: Globo faturou ~R$2 bi com 25+ patrocinadores (estreia da OpenAI como cotista); Caze TV vendeu 11 marcas via YouTube.", fonte:"Meio & Mensagem / Poder360", dataFonte:"11/06/2026", virouOportunidade:"N"},
+    {id:3, data:"09/08/2026", frente:"Digital & Streaming/CTV", movimento:"Ad-tier virou padrao: Netflix, Prime Video, Globoplay, Disney+ e Max cobram para remover anuncios -- ausencia de comercial e item premium.", fonte:"Band (via Exame)", dataFonte:"04/08/2026", virouOportunidade:"N"},
+    {id:4, data:"09/08/2026", frente:"Digital & Streaming/CTV", movimento:"Netflix anuncia formato interativo clicavel (EUA/Canada em jul/2026); testes no Brasil e Mexico antes do lancamento na America Latina.", fonte:"Terra / RD1", dataFonte:"27/06/2026", virouOportunidade:"N"},
+    {id:5, data:"09/08/2026", frente:"Retail Media", movimento:"Magalu Ads consolidado como maior canal de midia por intencao do pais; Casas Bahia fecha parceria estrategica com Mercado Livre.", fonte:"Retail Media News", dataFonte:"13/03/2026", virouOportunidade:"N"},
+    {id:6, data:"09/08/2026", frente:"Retail Media", movimento:"Retail Media Awards 2026 -- primeira edicao, 10/09 em Sao Paulo (Espaco APAS).", fonte:"Retail Media News", dataFonte:"17/12/2025", virouOportunidade:"N"}
+  ];
+
+  var seedWatchlist = [
+    {id:1, assunto:"Data de abertura das cotas do BBB 27", frente:"TV & Entretenimento", observar:"Decisao da Globo sobre veto a bets ainda nao fechada.", gatilho:"Confirmacao oficial do veto e abertura do pacote comercial.", checagem:"Semanal"},
+    {id:2, assunto:"Lancamento comercial do formato interativo Netflix no Brasil", frente:"Digital & Streaming/CTV", observar:"Testes em andamento no Brasil/Mexico; sem data oficial de lancamento comercial.", gatilho:"Anuncio de disponibilidade comercial no Brasil.", checagem:"Quinzenal"},
+    {id:3, assunto:"Fechamento do patrocinio do Paiol (A Fazenda)", frente:"TV & Entretenimento", observar:"Record so produz a dinamica se fechar patrocinador ate a estreia (14/09).", gatilho:"Anuncio de marca patrocinadora do Paiol.", checagem:"Semanal ate 14/09"},
+    {id:4, assunto:"Regulamentacao federal ampla de publicidade de bets", frente:"Novos Players/AdTech", observar:"Pressao regulatoria crescente pode afetar TV aberta como um todo, alem de realities.", gatilho:"Publicacao de nova norma ou projeto de lei aprovado.", checagem:"Quinzenal"}
+  ];
+
+  var seedOutlook = [
+    {id:1, timing:"Set/2026", propriedade:"A Fazenda 18 - Paiol", veiculo:"Record", oportunidade:"Patrocinio exclusivo da dinamica pre-estreia", formato:"Ativacao digital exclusiva", status:"Em comercializacao", prioridade:"MEDIUM", detalhe:"Why now: janela fecha em 14/09. What to do: propor marca de video curto/engajamento social. Risco: dinamica pode nao ser produzida se ninguem patrocinar."},
+    {id:2, timing:"4T 2026", propriedade:"BBB 27 - cota master", veiculo:"Rede Globo", oportunidade:"Possivel vacancia da cota de bets", formato:"Cota master / patrocinio de dinamicas", status:"Em negociacao", prioridade:"HIGH", detalhe:"Why now: decisao da Globo sobre veto a bets deve sair no 2S26. What to do: agendar reuniao com diretoria comercial. Risco: Globo pode manter bets se nao achar substituto a tempo."}
+  ];
+
+  var state = { pipeline: null, log: null, watchlist: null, outlook: null, lastUpdate: null };
+
+  function uid(){ return Date.now() + Math.floor(Math.random()*1000); }
+
+  async function loadKey(key, seed){
+    try{
+      var res = await window.storage.get(key, false);
+      if(res && res.value){ return JSON.parse(res.value); }
+      return seed;
+    }catch(e){
+      return seed;
+    }
+  }
+  async function saveKey(key, value){
+    try{ await window.storage.set(key, JSON.stringify(value), false); }
+    catch(e){ console.error('storage save failed', key, e); }
+  }
+
+  async function init(){
+    state.pipeline = await loadKey('radar_pipeline', seedPipeline);
+    state.log = await loadKey('radar_log', seedLog);
+    state.watchlist = await loadKey('radar_watchlist', seedWatchlist);
+    state.outlook = await loadKey('radar_outlook', seedOutlook);
+    var lu = await loadKey('radar_lastupdate', {v:"09/08/2026"});
+    state.lastUpdate = lu.v || lu;
+
+    document.getElementById('rd-lastupdate').value = state.lastUpdate;
+    document.getElementById('rd-lastupdate').addEventListener('change', function(e){
+      state.lastUpdate = e.target.value;
+      saveKey('radar_lastupdate', {v: state.lastUpdate});
+    });
+
+    buildTabs();
+    renderTab('dashboard');
+  }
+
+  var TABS = [
+    {id:'dashboard', label:'Dashboard', icon:'ti-chart-bar'},
+    {id:'pipeline', label:'Pipeline', icon:'ti-target-arrow'},
+    {id:'log', label:'Log semanal', icon:'ti-list-details'},
+    {id:'watchlist', label:'Watchlist', icon:'ti-eye'},
+    {id:'outlook', label:'Outlook 90d', icon:'ti-calendar'},
+    {id:'legenda', label:'Legenda', icon:'ti-info-circle'}
+  ];
+  var activeTab = 'dashboard';
+
+  function buildTabs(){
+    var wrap = document.getElementById('rd-tabs');
+    wrap.innerHTML = '';
+    TABS.forEach(function(t){
+      var btn = document.createElement('button');
+      btn.textContent = t.label;
+      btn.dataset.tab = t.id;
+      btn.style.background = 'transparent';
+      btn.style.border = 'none';
+      btn.style.borderBottom = '2px solid transparent';
+      btn.style.borderRadius = '0';
+      btn.style.padding = '12px 14px';
+      btn.style.fontSize = '12.5px';
+      btn.style.fontWeight = '500';
+      btn.style.color = 'var(--text-mid)';
+      btn.addEventListener('click', function(){ activeTab = t.id; renderTab(t.id); });
+      wrap.appendChild(btn);
+    });
+    styleActiveTab();
+  }
+  function styleActiveTab(){
+    var wrap = document.getElementById('rd-tabs');
+    Array.prototype.forEach.call(wrap.children, function(btn){
+      if(btn.dataset.tab === activeTab){
+        btn.style.color = 'var(--amber)';
+        btn.style.borderBottom = '2px solid var(--amber)';
+      }else{
+        btn.style.color = 'var(--text-mid)';
+        btn.style.borderBottom = '2px solid transparent';
+      }
+    });
+  }
+
+  function el(tag, attrs, children){
+    var e = document.createElement(tag);
+    attrs = attrs || {};
+    Object.keys(attrs).forEach(function(k){
+      if(k === 'style'){ Object.assign(e.style, attrs.style); }
+      else if(k === 'text'){ e.textContent = attrs.text; }
+      else if(k.indexOf('on') === 0){ /* skip, handled separately */ }
+      else{ e.setAttribute(k, attrs[k]); }
+    });
+    (children||[]).forEach(function(c){ if(c) e.appendChild(c); });
+    return e;
+  }
+
+  function badgePriority(p){
+    var cls = p === 'HIGH' ? 'b-high' : p === 'MEDIUM' ? 'b-medium' : 'b-low';
+    return el('span', {class:'badge '+cls, text:p||'-'});
+  }
+  function badgeFrente(f){
+    return el('span', {class:'badge b-frente', text:f||'-'});
+  }
+
+  function renderTab(id){
+    styleActiveTab();
+    var body = document.getElementById('rd-body');
+    body.innerHTML = '';
+    if(id==='dashboard') renderDashboard(body);
+    else if(id==='pipeline') renderPipeline(body);
+    else if(id==='log') renderLog(body);
+    else if(id==='watchlist') renderWatchlist(body);
+    else if(id==='outlook') renderOutlook(body);
+    else if(id==='legenda') renderLegenda(body);
+  }
+
+  function renderDashboard(body){
+    var p = state.pipeline;
+    var total = p.length;
+    var high = p.filter(function(x){return x.prioridade==='HIGH';}).length;
+    var med = p.filter(function(x){return x.prioridade==='MEDIUM';}).length;
+    var comerc = p.filter(function(x){return x.status==='Em comercializacao';}).length;
+
+    var kpiGrid = el('div', {class:'rd-kpigrid', style:{display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'12px', marginBottom:'22px'}});
+    [ ['Total de oportunidades', total, 'var(--amber)'],
+      ['Prioridade HIGH', high, 'var(--red)'],
+      ['Prioridade MEDIUM', med, 'var(--orange)'],
+      ['Em comercializacao', comerc, 'var(--green)']
+    ].forEach(function(k){
+      var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px'}});
+      var num = el('div', {class:'rd-mono', text:String(k[1]), style:{fontSize:'28px', fontWeight:'600', color:k[2]}});
+      var lbl = el('div', {text:k[0], style:{fontSize:'11.5px', color:'var(--text-mid)', marginTop:'4px'}});
+      card.appendChild(num); card.appendChild(lbl);
+      kpiGrid.appendChild(card);
+    });
+    body.appendChild(kpiGrid);
+
+    var subhead = el('div', {class:'rd-disp', text:'Oportunidades por frente', style:{fontSize:'13px', color:'var(--text-mid)', marginBottom:'6px', letterSpacing:'.04em'}});
+    body.appendChild(subhead);
+    var hint = el('div', {text:'Clique em uma frente para ver as oportunidades.', style:{fontSize:'11px', color:'var(--text-low)', marginBottom:'10px'}});
+    body.appendChild(hint);
+
+    var table = el('div', {class:'rd-frentetable', style:{border:'1px solid var(--ink-700)', borderRadius:'10px', overflow:'hidden', overflowX:'auto'}});
+    var headerRow = el('div', {class:'rd-frentetable-row', style:{display:'grid', gridTemplateColumns:'2fr 0.6fr 0.6fr 0.6fr 0.6fr', background:'var(--ink-800)', padding:'8px 14px', fontSize:'11px', color:'var(--text-mid)', fontWeight:'600'}});
+    ['Frente','Qtde','High','Med','Low'].forEach(function(h){ headerRow.appendChild(el('div',{text:h})); });
+    table.appendChild(headerRow);
+
+    FRENTES.forEach(function(f, i){
+      var items = p.filter(function(x){return x.frente===f;});
+      var isExpanded = !!expandedFrentes[f];
+      var hasItems = items.length > 0;
+
+      var row = el('div', {class:'rd-frentetable-row', style:{display:'grid', gridTemplateColumns:'2fr 0.6fr 0.6fr 0.6fr 0.6fr', padding:'9px 14px', fontSize:'12px', borderTop:'1px solid var(--ink-700)', background: isExpanded ? 'var(--ink-800)' : (i%2? 'var(--ink-900)':'transparent'), cursor: hasItems ? 'pointer' : 'default'}});
+      var frenteCell = el('div', {style:{display:'flex', alignItems:'center', gap:'6px', minWidth:'0', color: hasItems ? 'var(--text-hi)' : 'var(--text-low)'}});
+      var chevron = el('span', {text: hasItems ? (isExpanded ? '\u25BE' : '\u25B8') : '\u00B7', style:{color:'var(--amber)', fontSize:'11px', width:'10px', flexShrink:'0', display:'inline-block'}});
+      frenteCell.appendChild(chevron);
+      frenteCell.appendChild(el('span', {text:f, style:{overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', minWidth:'0'}}));
+      row.appendChild(frenteCell);
+      row.appendChild(el('div', {class:'rd-mono', text:String(items.length)}));
+      row.appendChild(el('div', {class:'rd-mono', text:String(items.filter(function(x){return x.prioridade==='HIGH';}).length), style:{color:'var(--red)'}}));
+      row.appendChild(el('div', {class:'rd-mono', text:String(items.filter(function(x){return x.prioridade==='MEDIUM';}).length), style:{color:'var(--orange)'}}));
+      row.appendChild(el('div', {class:'rd-mono', text:String(items.filter(function(x){return x.prioridade==='LOW';}).length), style:{color:'var(--green)'}}));
+      if(hasItems){
+        row.setAttribute('role','button');
+        row.setAttribute('tabindex','0');
+        row.setAttribute('aria-expanded', isExpanded ? 'true':'false');
+        row.addEventListener('click', function(){
+          expandedFrentes[f] = !expandedFrentes[f];
+          renderTab('dashboard');
+        });
+        row.addEventListener('keydown', function(ev){
+          if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); row.click(); }
+        });
+      }
+      table.appendChild(row);
+
+      if(isExpanded && hasItems){
+        var panel = el('div', {style:{padding:'10px 14px 14px', background:'var(--ink-950)', borderTop:'1px solid var(--ink-700)'}});
+        items.forEach(function(item){ panel.appendChild(renderMiniOppCard(item)); });
+        var linkBtn = el('button', {text:'Ver todas no Pipeline \u2192', style:{marginTop:'2px'}});
+        linkBtn.addEventListener('click', function(ev){
+          ev.stopPropagation();
+          pipelineFilters.frente = f; pipelineFilters.prioridade=''; pipelineFilters.status=''; pipelineFilters.search='';
+          activeTab = 'pipeline';
+          renderTab('pipeline');
+        });
+        panel.appendChild(linkBtn);
+        table.appendChild(panel);
+      }
+    });
+    body.appendChild(table);
+  }
+
+  function fieldRow(label, value, onCommit, multiline){
+    var wrap = el('div', {style:{marginBottom:'10px'}});
+    wrap.appendChild(el('div', {text:label, style:{fontSize:'10.5px', color:'var(--text-low)', textTransform:'uppercase', letterSpacing:'.04em', marginBottom:'3px'}}));
+    var ce = el('div', {contenteditable:'true', style:{fontSize:'12.5px', color:'var(--text-hi)', lineHeight:'1.5', padding:'4px 6px', borderRadius:'4px', minHeight: multiline ? '36px':'auto'}});
+    ce.textContent = value || '';
+    ce.addEventListener('blur', function(){ onCommit(ce.textContent); });
+    wrap.appendChild(ce);
+    return wrap;
+  }
+
+  function selectField(options, value, onChange){
+    var s = el('select', {});
+    options.forEach(function(o){
+      var opt = el('option', {value:o, text:o});
+      if(o===value) opt.setAttribute('selected','selected');
+      s.appendChild(opt);
+    });
+    s.addEventListener('change', function(){ onChange(s.value); });
+    return s;
+  }
+
+  var pipelineFilters = { frente:'', prioridade:'', status:'', search:'' };
+  var expandedFrentes = {};
+
+  function renderMiniOppCard(item){
+    var card = el('div', {class:'rd-minicard', style:{display:'flex', justifyContent:'space-between', alignItems:'center', gap:'10px', flexWrap:'wrap', background:'var(--ink-900)', border:'1px solid var(--ink-700)', borderRadius:'8px', padding:'10px 12px', marginBottom:'8px'}});
+    var left = el('div', {style:{minWidth:'0', flex:'1 1 160px', overflow:'hidden'}});
+    left.appendChild(el('div', {text:item.propriedade, style:{fontSize:'12.5px', fontWeight:'600', color:'var(--amber)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}));
+    left.appendChild(el('div', {text:item.veiculo||'', style:{fontSize:'11px', color:'var(--text-mid)', marginTop:'2px', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}));
+    var right = el('div', {style:{display:'flex', gap:'6px', alignItems:'center', flexWrap:'wrap', flexShrink:'0'}});
+    right.appendChild(badgePriority(item.prioridade));
+    right.appendChild(el('span', {class:'rd-mono', text:item.status||'', style:{fontSize:'10px', color:'var(--text-low)'}}));
+    right.appendChild(el('span', {text:'\u2192', style:{color:'var(--text-low)', fontSize:'13px'}}));
+    card.appendChild(left); card.appendChild(right);
+    card.addEventListener('click', function(){
+      pipelineFilters.frente = item.frente; pipelineFilters.prioridade=''; pipelineFilters.status='';
+      pipelineFilters.search = item.propriedade;
+      activeTab = 'pipeline';
+      renderTab('pipeline');
+    });
+    return card;
+  }
+
+  function renderPipeline(body){
+    var toolbar = el('div', {class:'rd-toolbar', style:{display:'flex', gap:'8px', flexWrap:'wrap', marginBottom:'16px', alignItems:'center'}});
+
+    var frenteFilter = selectField(['Todas as frentes'].concat(FRENTES), pipelineFilters.frente || 'Todas as frentes', function(v){
+      pipelineFilters.frente = v==='Todas as frentes' ? '' : v; renderTab('pipeline');
+    });
+    var prioFilter = selectField(['Todas as prioridades'].concat(PRIORITIES), pipelineFilters.prioridade || 'Todas as prioridades', function(v){
+      pipelineFilters.prioridade = v==='Todas as prioridades' ? '' : v; renderTab('pipeline');
+    });
+    var statusFilter = selectField(['Todos os status'].concat(STATUSES), pipelineFilters.status || 'Todos os status', function(v){
+      pipelineFilters.status = v==='Todos os status' ? '' : v; renderTab('pipeline');
+    });
+    var searchBox = el('input', {type:'text', placeholder:'Buscar por propriedade ou veiculo...', style:{flex:'1', minWidth:'180px'}});
+    searchBox.value = pipelineFilters.search;
+    searchBox.addEventListener('input', function(){ pipelineFilters.search = searchBox.value; renderPipelineList(listWrap); });
+
+    var addBtn = el('button', {class:'primary', text:'+ Nova oportunidade'});
+    addBtn.addEventListener('click', function(){
+      var item = {id:uid(), data:new Date().toLocaleDateString('pt-BR'), frente:FRENTES[0], propriedade:'Nova oportunidade', veiculo:'',
+        oQueAconteceu:'', porQueImporta:'', oportunidade:'', formato:'', periodo:'', status:'Rumor', estagio:'EARLY SIGNAL', prioridade:'MEDIUM',
+        anunciante:'', acao:'', fonte:'', dataFonte:''};
+      state.pipeline.unshift(item);
+      saveKey('radar_pipeline', state.pipeline);
+      renderTab('pipeline');
+    });
+
+    toolbar.appendChild(frenteFilter); toolbar.appendChild(prioFilter); toolbar.appendChild(statusFilter);
+    toolbar.appendChild(searchBox); toolbar.appendChild(addBtn);
+    body.appendChild(toolbar);
+
+    var listWrap = el('div', {});
+    body.appendChild(listWrap);
+    renderPipelineList(listWrap);
+  }
+
+  function renderPipelineList(listWrap){
+    listWrap.innerHTML = '';
+    var items = state.pipeline.filter(function(x){
+      if(pipelineFilters.frente && x.frente !== pipelineFilters.frente) return false;
+      if(pipelineFilters.prioridade && x.prioridade !== pipelineFilters.prioridade) return false;
+      if(pipelineFilters.status && x.status !== pipelineFilters.status) return false;
+      if(pipelineFilters.search){
+        var q = pipelineFilters.search.toLowerCase();
+        if((x.propriedade||'').toLowerCase().indexOf(q)===-1 && (x.veiculo||'').toLowerCase().indexOf(q)===-1) return false;
+      }
+      return true;
+    });
+
+    if(items.length===0){
+      listWrap.appendChild(el('div', {text:'Nenhuma oportunidade encontrada com esses filtros.', style:{color:'var(--text-mid)', fontSize:'13px', padding:'20px 0'}}));
+      return;
+    }
+
+    items.forEach(function(item){
+      var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px', marginBottom:'12px'}});
+
+      var head = el('div', {style:{display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:'10px', marginBottom:'10px'}});
+      var headLeft = el('div', {style:{display:'flex', gap:'6px', flexWrap:'wrap', alignItems:'center'}});
+      headLeft.appendChild(badgeFrente(item.frente));
+      headLeft.appendChild(badgePriority(item.prioridade));
+      headLeft.appendChild(el('span', {class:'rd-mono', text:item.data, style:{fontSize:'10.5px', color:'var(--text-low)'}}));
+      var delBtn = el('button', {class:'danger', text:'Remover'});
+      delBtn.addEventListener('click', function(){
+        if(confirm('Remover esta oportunidade?')){
+          state.pipeline = state.pipeline.filter(function(x){return x.id!==item.id;});
+          saveKey('radar_pipeline', state.pipeline);
+          renderTab('pipeline');
+        }
+      });
+      head.appendChild(headLeft); head.appendChild(delBtn);
+      card.appendChild(head);
+
+      var title = el('div', {contenteditable:'true', class:'rd-disp', text:item.propriedade, style:{fontSize:'15px', fontWeight:'600', color:'var(--amber)', marginBottom:'2px'}});
+      title.addEventListener('blur', function(){ item.propriedade = title.textContent; saveKey('radar_pipeline', state.pipeline); });
+      card.appendChild(title);
+
+      var veiculo = el('div', {contenteditable:'true', text:item.veiculo, style:{fontSize:'12px', color:'var(--text-mid)', marginBottom:'12px'}});
+      veiculo.addEventListener('blur', function(){ item.veiculo = veiculo.textContent; saveKey('radar_pipeline', state.pipeline); });
+      card.appendChild(veiculo);
+
+      var grid = el('div', {class:'rd-fieldgrid'});
+      grid.appendChild(fieldRow('O que aconteceu', item.oQueAconteceu, function(v){ item.oQueAconteceu=v; saveKey('radar_pipeline', state.pipeline); }, true));
+      grid.appendChild(fieldRow('Por que importa', item.porQueImporta, function(v){ item.porQueImporta=v; saveKey('radar_pipeline', state.pipeline); }, true));
+      grid.appendChild(fieldRow('Oportunidade para a marca', item.oportunidade, function(v){ item.oportunidade=v; saveKey('radar_pipeline', state.pipeline); }, true));
+      grid.appendChild(fieldRow('Acao recomendada', item.acao, function(v){ item.acao=v; saveKey('radar_pipeline', state.pipeline); }, true));
+      grid.appendChild(fieldRow('Formato comercial', item.formato, function(v){ item.formato=v; saveKey('radar_pipeline', state.pipeline); }));
+      grid.appendChild(fieldRow('Periodo', item.periodo, function(v){ item.periodo=v; saveKey('radar_pipeline', state.pipeline); }));
+      grid.appendChild(fieldRow('Categoria de anunciante (fit)', item.anunciante, function(v){ item.anunciante=v; saveKey('radar_pipeline', state.pipeline); }));
+      grid.appendChild(fieldRow('Fonte', item.fonte+ (item.dataFonte? ' - '+item.dataFonte : ''), function(v){ item.fonte=v; saveKey('radar_pipeline', state.pipeline); }));
+      card.appendChild(grid);
+
+      var controls = el('div', {class:'rd-controls', style:{display:'flex', gap:'16px', flexWrap:'wrap', marginTop:'10px', paddingTop:'10px', borderTop:'1px solid var(--ink-700)'}});
+
+      var frenteC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      frenteC.appendChild(el('span', {text:'Frente', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      frenteC.appendChild(selectField(FRENTES, item.frente, function(v){ item.frente=v; saveKey('radar_pipeline', state.pipeline); renderDashboardIfActive(); }));
+      controls.appendChild(frenteC);
+
+      var statusC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      statusC.appendChild(el('span', {text:'Status', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      statusC.appendChild(selectField(STATUSES, item.status, function(v){ item.status=v; saveKey('radar_pipeline', state.pipeline); }));
+      controls.appendChild(statusC);
+
+      var estagioC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      estagioC.appendChild(el('span', {text:'Estagio', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      estagioC.appendChild(selectField(STAGES, item.estagio, function(v){ item.estagio=v; saveKey('radar_pipeline', state.pipeline); }));
+      controls.appendChild(estagioC);
+
+      var prioC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      prioC.appendChild(el('span', {text:'Prioridade', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      prioC.appendChild(selectField(PRIORITIES, item.prioridade, function(v){ item.prioridade=v; saveKey('radar_pipeline', state.pipeline); renderTab('pipeline'); }));
+      controls.appendChild(prioC);
+
+      card.appendChild(controls);
+      listWrap.appendChild(card);
+    });
+  }
+
+  function renderDashboardIfActive(){ if(activeTab==='dashboard') renderTab('dashboard'); }
+
+  function renderLog(body){
+    var toolbar = el('div', {class:'rd-toolbar-end', style:{display:'flex', justifyContent:'flex-end', marginBottom:'14px'}});
+    var addBtn = el('button', {class:'primary', text:'+ Novo movimento'});
+    addBtn.addEventListener('click', function(){
+      state.log.unshift({id:uid(), data:new Date().toLocaleDateString('pt-BR'), frente:FRENTES[0], movimento:'', fonte:'', dataFonte:'', virouOportunidade:'N'});
+      saveKey('radar_log', state.log);
+      renderTab('log');
+    });
+    toolbar.appendChild(addBtn);
+    body.appendChild(toolbar);
+
+    state.log.forEach(function(item){
+      var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'12px 16px', marginBottom:'10px'}});
+      var head = el('div', {style:{display:'flex', justifyContent:'space-between', gap:'10px', marginBottom:'8px'}});
+      var headLeft = el('div', {style:{display:'flex', gap:'6px', alignItems:'center'}});
+      headLeft.appendChild(badgeFrente(item.frente));
+      headLeft.appendChild(el('span', {class:'rd-mono', text:item.data, style:{fontSize:'10.5px', color:'var(--text-low)'}}));
+      var delBtn = el('button', {class:'danger', text:'Remover'});
+      delBtn.addEventListener('click', function(){
+        state.log = state.log.filter(function(x){return x.id!==item.id;});
+        saveKey('radar_log', state.log); renderTab('log');
+      });
+      head.appendChild(headLeft); head.appendChild(delBtn);
+      card.appendChild(head);
+      card.appendChild(fieldRow('Movimento de mercado', item.movimento, function(v){ item.movimento=v; saveKey('radar_log', state.log); }, true));
+      var bottom = el('div', {class:'rd-controls', style:{display:'flex', gap:'16px', flexWrap:'wrap', alignItems:'flex-end', marginTop:'6px'}});
+      bottom.appendChild(fieldRow('Fonte', item.fonte, function(v){ item.fonte=v; saveKey('radar_log', state.log); }));
+      bottom.appendChild(fieldRow('Data da fonte', item.dataFonte, function(v){ item.dataFonte=v; saveKey('radar_log', state.log); }));
+      var oppC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      oppC.appendChild(el('span', {text:'Virou oportunidade?', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      oppC.appendChild(selectField(['N','S'], item.virouOportunidade, function(v){ item.virouOportunidade=v; saveKey('radar_log', state.log); }));
+      bottom.appendChild(oppC);
+      card.appendChild(bottom);
+      body.appendChild(card);
+    });
+  }
+
+  function renderWatchlist(body){
+    var toolbar = el('div', {class:'rd-toolbar-end', style:{display:'flex', justifyContent:'flex-end', marginBottom:'14px'}});
+    var addBtn = el('button', {class:'primary', text:'+ Novo item'});
+    addBtn.addEventListener('click', function(){
+      state.watchlist.unshift({id:uid(), assunto:'Novo assunto', frente:FRENTES[0], observar:'', gatilho:'', checagem:'Semanal'});
+      saveKey('radar_watchlist', state.watchlist);
+      renderTab('watchlist');
+    });
+    toolbar.appendChild(addBtn);
+    body.appendChild(toolbar);
+
+    state.watchlist.forEach(function(item){
+      var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px', marginBottom:'12px'}});
+      var head = el('div', {style:{display:'flex', justifyContent:'space-between', gap:'10px', marginBottom:'6px'}});
+      head.appendChild(badgeFrente(item.frente));
+      var delBtn = el('button', {class:'danger', text:'Remover'});
+      delBtn.addEventListener('click', function(){
+        state.watchlist = state.watchlist.filter(function(x){return x.id!==item.id;});
+        saveKey('radar_watchlist', state.watchlist); renderTab('watchlist');
+      });
+      head.appendChild(delBtn);
+      card.appendChild(head);
+
+      var title = el('div', {contenteditable:'true', class:'rd-disp', text:item.assunto, style:{fontSize:'14px', fontWeight:'600', color:'var(--amber)', marginBottom:'8px'}});
+      title.addEventListener('blur', function(){ item.assunto = title.textContent; saveKey('radar_watchlist', state.watchlist); });
+      card.appendChild(title);
+
+      card.appendChild(fieldRow('O que observar', item.observar, function(v){ item.observar=v; saveKey('radar_watchlist', state.watchlist); }, true));
+      card.appendChild(fieldRow('Gatilho para virar oportunidade', item.gatilho, function(v){ item.gatilho=v; saveKey('radar_watchlist', state.watchlist); }, true));
+      card.appendChild(fieldRow('Proxima checagem', item.checagem, function(v){ item.checagem=v; saveKey('radar_watchlist', state.watchlist); }));
+
+      var frenteC = el('div', {style:{marginTop:'4px'}});
+      frenteC.appendChild(el('span', {text:'Frente: ', style:{fontSize:'10px', color:'var(--text-low)', marginRight:'6px'}}));
+      frenteC.appendChild(selectField(FRENTES, item.frente, function(v){ item.frente=v; saveKey('radar_watchlist', state.watchlist); }));
+      card.appendChild(frenteC);
+
+      body.appendChild(card);
+    });
+  }
+
+  function renderOutlook(body){
+    var toolbar = el('div', {class:'rd-toolbar-end', style:{display:'flex', justifyContent:'flex-end', marginBottom:'14px'}});
+    var addBtn = el('button', {class:'primary', text:'+ Nova oportunidade (90d)'});
+    addBtn.addEventListener('click', function(){
+      state.outlook.unshift({id:uid(), timing:'', propriedade:'Nova oportunidade', veiculo:'', oportunidade:'', formato:'', status:'Rumor', prioridade:'MEDIUM', detalhe:''});
+      saveKey('radar_outlook', state.outlook);
+      renderTab('outlook');
+    });
+    toolbar.appendChild(addBtn);
+    body.appendChild(toolbar);
+
+    state.outlook.forEach(function(item){
+      var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px', marginBottom:'12px'}});
+      var head = el('div', {style:{display:'flex', justifyContent:'space-between', gap:'10px', marginBottom:'8px'}});
+      var headLeft = el('div', {style:{display:'flex', gap:'6px', alignItems:'center'}});
+      headLeft.appendChild(badgePriority(item.prioridade));
+      headLeft.appendChild(el('span', {class:'rd-mono', text:item.timing, style:{fontSize:'11px', color:'var(--amber)', fontWeight:'600'}}));
+      var delBtn = el('button', {class:'danger', text:'Remover'});
+      delBtn.addEventListener('click', function(){
+        state.outlook = state.outlook.filter(function(x){return x.id!==item.id;});
+        saveKey('radar_outlook', state.outlook); renderTab('outlook');
+      });
+      head.appendChild(headLeft); head.appendChild(delBtn);
+      card.appendChild(head);
+
+      var title = el('div', {contenteditable:'true', class:'rd-disp', text:item.propriedade, style:{fontSize:'15px', fontWeight:'600', color:'var(--text-hi)', marginBottom:'2px'}});
+      title.addEventListener('blur', function(){ item.propriedade = title.textContent; saveKey('radar_outlook', state.outlook); });
+      card.appendChild(title);
+      var veiculo = el('div', {contenteditable:'true', text:item.veiculo, style:{fontSize:'12px', color:'var(--text-mid)', marginBottom:'10px'}});
+      veiculo.addEventListener('blur', function(){ item.veiculo = veiculo.textContent; saveKey('radar_outlook', state.outlook); });
+      card.appendChild(veiculo);
+
+      var grid = el('div', {class:'rd-fieldgrid'});
+      grid.appendChild(fieldRow('Oportunidade', item.oportunidade, function(v){ item.oportunidade=v; saveKey('radar_outlook', state.outlook); }));
+      grid.appendChild(fieldRow('Formato', item.formato, function(v){ item.formato=v; saveKey('radar_outlook', state.outlook); }));
+      card.appendChild(grid);
+      card.appendChild(fieldRow('Why now? / What to do? / Risco', item.detalhe, function(v){ item.detalhe=v; saveKey('radar_outlook', state.outlook); }, true));
+
+      var controls = el('div', {class:'rd-controls', style:{display:'flex', gap:'16px', flexWrap:'wrap', marginTop:'6px', paddingTop:'10px', borderTop:'1px solid var(--ink-700)'}});
+      var statusC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      statusC.appendChild(el('span', {text:'Status', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      statusC.appendChild(selectField(STATUSES, item.status, function(v){ item.status=v; saveKey('radar_outlook', state.outlook); }));
+      controls.appendChild(statusC);
+      var prioC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      prioC.appendChild(el('span', {text:'Prioridade', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      prioC.appendChild(selectField(PRIORITIES, item.prioridade, function(v){ item.prioridade=v; saveKey('radar_outlook', state.outlook); renderTab('outlook'); }));
+      controls.appendChild(prioC);
+      var timingC = el('div', {style:{display:'flex', flexDirection:'column', gap:'3px'}});
+      timingC.appendChild(el('span', {text:'Timing', style:{fontSize:'10px', color:'var(--text-low)'}}));
+      var timingInput = el('input', {type:'text', value:item.timing});
+      timingInput.value = item.timing;
+      timingInput.addEventListener('change', function(){ item.timing = timingInput.value; saveKey('radar_outlook', state.outlook); renderTab('outlook'); });
+      timingC.appendChild(timingInput);
+      controls.appendChild(timingC);
+      card.appendChild(controls);
+
+      body.appendChild(card);
+    });
+  }
+
+  function renderLegenda(body){
+    var sections = [
+      ['Rotina', [
+        ['Toda segunda-feira', 'Varredura do fim de semana. Adicione achados no Pipeline (se ja forem oportunidade) ou no Log Semanal (se ainda forem so um movimento de mercado).'],
+        ['Toda sexta-feira', 'Consolide a semana: atualize Status/Prioridade das oportunidades existentes e mova itens do Log Semanal para o Pipeline quando amadurecerem.'],
+        ['Todo dia 25', 'Preencha o Outlook 90 dias com as 10 oportunidades de maior potencial para o proximo trimestre.']
+      ]],
+      ['Prioridade', [
+        ['HIGH', 'Acao potencial imediata -- pode mudar um plano de midia agora.'],
+        ['MEDIUM', 'Relevante para planejamento futuro -- vale monitorar de perto.'],
+        ['LOW', 'Informacao de contexto, sem urgencia de acao.']
+      ]],
+      ['Status', [
+        ['Rumor', 'Informacao ainda nao confirmada oficialmente.'],
+        ['Anunciado', 'Movimento confirmado publicamente, sem detalhes comerciais.'],
+        ['Em negociacao', 'Partes estao negociando direitos/patrocinio.'],
+        ['Em comercializacao', 'Cotas ou inventario abertos para venda.'],
+        ['Cotas vendidas', 'Inventario principal ja vendido -- restam posicoes secundarias.'],
+        ['Confirmado', 'Negocio fechado e anunciado.']
+      ]],
+      ['Estagio', [
+        ['EARLY SIGNAL', 'Sinal antecipado -- melhor momento para first mover.'],
+        ['ANNOUNCED', 'Anunciado publicamente.'],
+        ['COMMERCIALIZATION', 'Em comercializacao ativa.'],
+        ['SOLD', 'Ja vendido / fechado.']
+      ]]
+    ];
+    sections.forEach(function(sec){
+      body.appendChild(el('div', {class:'rd-disp', text:sec[0], style:{fontSize:'13px', color:'var(--amber)', margin:'16px 0 8px', letterSpacing:'.04em'}}));
+      sec[1].forEach(function(row){
+        var r = el('div', {style:{display:'flex', gap:'14px', padding:'7px 0', borderTop:'1px solid var(--ink-700)'}});
+        r.appendChild(el('div', {text:row[0], style:{width:'180px', flexShrink:'0', fontSize:'12px', fontWeight:'600', color:'var(--text-hi)'}}));
+        r.appendChild(el('div', {text:row[1], style:{fontSize:'12px', color:'var(--text-mid)', lineHeight:'1.5'}}));
+        body.appendChild(r);
+      });
+    });
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
