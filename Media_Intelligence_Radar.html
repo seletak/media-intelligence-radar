@@ -123,6 +123,14 @@
   var PRIORITIES = ["HIGH","MEDIUM","LOW"];
 
   var seedPipeline = [
+    {id:7, data:"10/08/2026", frente:"Novos Players/AdTech", propriedade:"ChatGPT Ads chega ao Brasil com autoatendimento liberado para anunciantes", veiculo:"OpenAI / ChatGPT",
+     oQueAconteceu:"OpenAI iniciou piloto de anuncios no ChatGPT para usuarios dos planos Free e Go no Brasil (04/08/2026) e, em 06/08/2026, liberou por email a plataforma de autoatendimento para anunciantes brasileiros comprarem campanhas diretamente; BETC Havas, Monks, Omnicom, Publicis e WPP ja confirmados como parceiros de lancamento.",
+     porQueImporta:"Abre um novo canal de midia paga de escala nacional dentro de uma superficie de altissimo engajamento -- Brasil e um dos 3 maiores mercados do ChatGPT em usuarios ativos -- com curva de aprendizado e concorrencia por leilao ainda baixas para quem entrar cedo.",
+     oportunidade:"Anunciantes de qualquer categoria podem testar formatos de anuncio conversacional/search antes da maturidade do leilao elevar o CPM.",
+     formato:"Self-service ads / conversational search ads", periodo:"Piloto ja ativo -- autoatendimento liberado desde 06/08/2026",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"HIGH", anunciante:"Qualquer categoria interessada em testar novo canal de search/conversational ads",
+     acao:"Solicitar acesso a plataforma de autoatendimento da OpenAI Ads e desenhar piloto de teste ainda no 3T26, antes da entrada em massa de concorrentes.",
+     fonte:"Meio & Mensagem / Exame / CNN Brasil", dataFonte:"04-06/08/2026"},
     {id:1, data:"09/08/2026", frente:"TV & Entretenimento", propriedade:"Veto de bets no BBB 27", veiculo:"Rede Globo",
      oQueAconteceu:"Globo estuda proibir patrocinio de casas de apostas no BBB a partir de jan/2027, apos reclassificacao indicativa do BBB 26 pelo Ministerio da Justica.",
      porQueImporta:"Abre a maior cota master da TV aberta brasileira (BBB faturou +R$1 bi em publicidade na ultima edicao) para categorias fora de bets.",
@@ -174,6 +182,8 @@
   ];
 
   var seedLog = [
+    {id:8, data:"10/08/2026", frente:"TV & Entretenimento", movimento:"+TV Forum 2026 (10a edicao, Tela Viva/Teletime) acontece em 12-13/08 em Sao Paulo reunindo executivos do setor para debater novos modelos de negocio de TV e conteudo -- evento tende a gerar anuncios de novos formatos e produtos comerciais ao longo da semana.", fonte:"Tela Viva News / Teletime", dataFonte:"04/08/2026", virouOportunidade:"N"},
+    {id:7, data:"10/08/2026", frente:"Digital & Streaming/CTV", movimento:"Estudo da DoubleVerify aponta o Brasil na lideranca de crescimento de fraude em CTV na America Latina, entre as maiores altas do mundo ao lado de India e Vietna -- tema ganha repercussao as vesperas do +TV Forum.", fonte:"Tela Viva News", dataFonte:"31/07/2026", virouOportunidade:"N"},
     {id:1, data:"09/08/2026", frente:"Esportes", movimento:"Brasileirao 2026 consolida modelo fragmentado Libra x LFU ate 2029; Globo detem direitos nos dois blocos, LFU soma Record/Prime Video/Caze TV.", fonte:"O Tempo / Cassio Zirpoli", dataFonte:"28/01/2026", virouOportunidade:"N"},
     {id:2, data:"09/08/2026", frente:"Esportes", movimento:"Copa do Mundo 2026 encerrada: Globo faturou ~R$2 bi com 25+ patrocinadores (estreia da OpenAI como cotista); Caze TV vendeu 11 marcas via YouTube.", fonte:"Meio & Mensagem / Poder360", dataFonte:"11/06/2026", virouOportunidade:"N"},
     {id:3, data:"09/08/2026", frente:"Digital & Streaming/CTV", movimento:"Ad-tier virou padrao: Netflix, Prime Video, Globoplay, Disney+ e Max cobram para remover anuncios -- ausencia de comercial e item premium.", fonte:"Band (via Exame)", dataFonte:"04/08/2026", virouOportunidade:"N"},
@@ -217,7 +227,7 @@
     state.log = await loadKey('radar_log', seedLog);
     state.watchlist = await loadKey('radar_watchlist', seedWatchlist);
     state.outlook = await loadKey('radar_outlook', seedOutlook);
-    var lu = await loadKey('radar_lastupdate', {v:"09/08/2026"});
+    var lu = await loadKey('radar_lastupdate', {v:"10/08/2026"});
     state.lastUpdate = lu.v || lu;
 
     document.getElementById('rd-lastupdate').value = state.lastUpdate;
@@ -314,15 +324,25 @@
     var comerc = p.filter(function(x){return x.status==='Em comercializacao';}).length;
 
     var kpiGrid = el('div', {class:'rd-kpigrid', style:{display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(140px,1fr))', gap:'12px', marginBottom:'22px'}});
-    [ ['Total de oportunidades', total, 'var(--amber)'],
-      ['Prioridade HIGH', high, 'var(--red)'],
-      ['Prioridade MEDIUM', med, 'var(--orange)'],
-      ['Em comercializacao', comerc, 'var(--green)']
+    [ ['Total de oportunidades', total, 'var(--amber)', function(){ pipelineFilters.frente=''; pipelineFilters.prioridade=''; pipelineFilters.status=''; pipelineFilters.search=''; }],
+      ['Prioridade HIGH', high, 'var(--red)', function(){ pipelineFilters.frente=''; pipelineFilters.prioridade='HIGH'; pipelineFilters.status=''; pipelineFilters.search=''; }],
+      ['Prioridade MEDIUM', med, 'var(--orange)', function(){ pipelineFilters.frente=''; pipelineFilters.prioridade='MEDIUM'; pipelineFilters.status=''; pipelineFilters.search=''; }],
+      ['Em comercializacao', comerc, 'var(--green)', function(){ pipelineFilters.frente=''; pipelineFilters.prioridade=''; pipelineFilters.status='Em comercializacao'; pipelineFilters.search=''; }]
     ].forEach(function(k){
-      var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px'}});
+      var card = el('div', {class:'rd-minicard', style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px'}});
       var num = el('div', {class:'rd-mono', text:String(k[1]), style:{fontSize:'28px', fontWeight:'600', color:k[2]}});
       var lbl = el('div', {text:k[0], style:{fontSize:'11.5px', color:'var(--text-mid)', marginTop:'4px'}});
       card.appendChild(num); card.appendChild(lbl);
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.addEventListener('click', function(){
+        k[3]();
+        activeTab = 'pipeline';
+        renderTab('pipeline');
+      });
+      card.addEventListener('keydown', function(ev){
+        if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); card.click(); }
+      });
       kpiGrid.appendChild(card);
     });
     body.appendChild(kpiGrid);
