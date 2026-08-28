@@ -123,6 +123,22 @@
   var PRIORITIES = ["HIGH","MEDIUM","LOW"];
 
   var seedPipeline = [
+    {id:9, data:"14/08/2026", frente:"Esportes", propriedade:"Coca-Cola volta como patrocinadora oficial da CBF (Serie A, Serie B, Feminino A1 e Copa do Brasil)", veiculo:"CBF",
+     oQueAconteceu:"Coca-Cola fechou patrocinio com a CBF valido para as temporadas 2026 e 2027, cobrindo Serie A, Serie B, Brasileirao Feminino A1 e Copa do Brasil, com ativacoes em paineis de LED, placas estaticas, backdrops de entrevista e conteudo digital; negociado via Heatmap/FSports, marca o retorno da Coca-Cola ao patrocinio da CBF apos mais de duas decadas.",
+     porQueImporta:"Fecha uma das ultimas grandes cotas globais em aberto no futebol nacional e trava a categoria de bebidas nao-alcoolicas em nivel CBF -- concorrentes diretos precisam migrar o foco para cotas de clube ou emissora ainda vagas.",
+     oportunidade:"Categorias adjacentes (QSR, snacks, telecom) podem buscar ativacoes conjuntas via ecossistema CBF; concorrentes de bebidas devem reavaliar cotas de clubes/emissoras que ainda nao fecharam patrocinador master.",
+     formato:"Patrocinio institucional / LED / conteudo digital", periodo:"Temporadas 2026 e 2027",
+     status:"Confirmado", estagio:"SOLD", prioridade:"MEDIUM", anunciante:"Bebidas (categoria fechada); QSR e FMCG adjacentes",
+     acao:"Mapear cotas de clubes/emissoras ainda vagas (Vasco, Gremio, Internacional, Coritiba, Bahia, Santos) para categorias que perderam espaco com a exclusividade CBF-Coca-Cola.",
+     fonte:"Meio & Mensagem / Maquina do Esporte / CBF", dataFonte:"Jul/2026"},
+    {id:8, data:"14/08/2026", frente:"Esportes", propriedade:"Ligue 1 (Campeonato Frances) estreia na Xsports em TV aberta", veiculo:"Xsports",
+     oQueAconteceu:"Xsports adquiriu os direitos da Ligue 1 para a temporada 2026/27, exibindo 3 jogos por rodada em TV aberta; estreia em 21/08/2026 (Marselha x Strasbourg, 15h45). Emissora ainda constroi carteira comercial (Goodyear, Shopee, Mitsubishi, Sportingbet, Cielo, Bradesco, entre outros) apos 2,5 decadas sem novas concessoes abertas no pais.",
+     porQueImporta:"Novo inventario esportivo europeu de alta visibilidade em TV aberta, com emissora ainda em fase de aculturamento comercial junto a agencias -- janela de entrada com menor disputa por espaco que canais consolidados.",
+     oportunidade:"Marcas que buscam associacao a futebol europeu (bebidas, apostas, bancos, telecom, automotivo) podem negociar cotas antes da estreia e da consolidacao da grade.",
+     formato:"Cota de patrocinio / breaks / merchandising em TV aberta", periodo:"A partir de 21/08/2026 (temporada 2026/27, 34 rodadas)",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"Bancos; Apostas; Bebidas; Automotivo; Telecom",
+     acao:"Solicitar media kit e disponibilidade de cotas a Xsports antes da estreia de 21/08.",
+     fonte:"Maquina do Esporte / Tela Viva News / RD1", dataFonte:"30/07/2026"},
     {id:7, data:"10/08/2026", frente:"Novos Players/AdTech", propriedade:"ChatGPT Ads chega ao Brasil com autoatendimento liberado para anunciantes", veiculo:"OpenAI / ChatGPT",
      oQueAconteceu:"OpenAI iniciou piloto de anuncios no ChatGPT para usuarios dos planos Free e Go no Brasil (04/08/2026) e, em 06/08/2026, liberou por email a plataforma de autoatendimento para anunciantes brasileiros comprarem campanhas diretamente; BETC Havas, Monks, Omnicom, Publicis e WPP ja confirmados como parceiros de lancamento.",
      porQueImporta:"Abre um novo canal de midia paga de escala nacional dentro de uma superficie de altissimo engajamento -- Brasil e um dos 3 maiores mercados do ChatGPT em usuarios ativos -- com curva de aprendizado e concorrencia por leilao ainda baixas para quem entrar cedo.",
@@ -139,14 +155,14 @@
      status:"Em negociacao", estagio:"EARLY SIGNAL", prioridade:"HIGH", anunciante:"Bancos; Fintechs; Telecom; E-commerce; Bebidas",
      acao:"Antecipar contato com diretoria comercial da Globo antes da abertura formal da cota.",
      fonte:"Meio & Mensagem / Folha SP (via BNLData)", dataFonte:"Jul/2026"},
-    {id:2, data:"09/08/2026", frente:"TV & Entretenimento", propriedade:"Paiol de A Fazenda 18 condicionado a patrocinio", veiculo:"Record",
-     oQueAconteceu:"Record so reativa a dinamica do Paiol (disputa por vaga pre-estreia) se fechar patrocinio especifico, mirando marcas de redes sociais/video curto.",
-     porQueImporta:"Produto comercial isolado e ownable por uma unica marca, com pico de conversa social antes da estreia oficial.",
-     oportunidade:"Plataformas de video curto, apps de engajamento/voto e marcas de entretenimento digital podem comprar exclusividade total do formato.",
-     formato:"Patrocinio exclusivo de dinamica / ativacao digital", periodo:"Estreia 14/09/2026",
-     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"Social/Video platforms; Apps de entretenimento",
-     acao:"Contato imediato com a Record -- inventario so existe se um patrocinador comprar antes da estreia.",
-     fonte:"Terra / RD1", dataFonte:"Jun/2026"},
+    {id:2, data:"14/08/2026", frente:"TV & Entretenimento", propriedade:"Paiol de A Fazenda 18 condicionado a patrocinio", veiculo:"Record",
+     oQueAconteceu:"ATUALIZACAO 14/08: Record confirmou que A Fazenda 18 (estreia 14/09) nao tera a dinamica do Paiol nem infiltrados -- patrocinador de peso buscado ao longo do 1S26 nao foi fechado a tempo e o formato foi descartado para esta edicao.",
+     porQueImporta:"A oportunidade de patrocinio exclusivo nao se concretizou nesta edicao; vale manter o registro para reabrir contato caso o formato retorne em temporadas futuras.",
+     oportunidade:"Sem oportunidade ativa nesta temporada -- monitorar eventual retomada do Paiol em A Fazenda 19.",
+     formato:"Patrocinio exclusivo de dinamica / ativacao digital", periodo:"Nao ocorrera em 2026",
+     status:"Em negociacao", estagio:"EARLY SIGNAL", prioridade:"LOW", anunciante:"Social/Video platforms; Apps de entretenimento",
+     acao:"Nenhuma acao nesta edicao; reabrir prospeccao apenas se a Record reintroduzir o formato em edicoes futuras.",
+     fonte:"RD1 / Terra / Pipoca Moderna", dataFonte:"Jul/2026 (confirmacao do cancelamento)"},
     {id:3, data:"09/08/2026", frente:"Digital & Streaming/CTV", propriedade:"Netflix leva branded content nativo para producoes nacionais", veiculo:"Netflix",
      oQueAconteceu:"Netflix expande o modelo de integracao de marca dentro de producoes brasileiras (ex.: Ambev/Brahma em Brasil 70 - A Saga do Tri), com curadoria do time de Parcerias de Marketing.",
      porQueImporta:"Product placement estrategico com apoio criativo da propria Netflix, aplicado a conteudo nacional -- maior afinidade cultural que integracoes globais.",
@@ -178,10 +194,47 @@
      formato:"Retail media network + DOOH / in-store media", periodo:"Deploy completo ate back-to-school 2026",
      status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"FMCG; Beleza; Eletronicos",
      acao:"Solicitar case/piloto da integracao Unlimitail + JCDecaux antes da concorrencia testar o formato.",
-     fonte:"Retail Media News", dataFonte:"18/12/2025"}
+     fonte:"Retail Media News", dataFonte:"18/12/2025"},
+    {id:10, data:"20/08/2026", frente:"OOH/DOOH", propriedade:"JN nas Ruas - Brasil Que Ensina (parceria Globo x Eletromidia)", veiculo:"Rede Globo / Eletromidia",
+     oQueAconteceu:"Globo e Eletromidia fecham parceria inedita para levar conteudo do Jornal Nacional (com Renata Vasconcellos e William Bonner/Cesar Tralli) para telas da maior rede de DOOH do pais, em pontos de onibus, halls, elevadores e campi universitarios, na serie 'JN nas Ruas - Brasil Que Ensina'.",
+     porQueImporta:"Primeiro cruzamento direto de conteudo do telejornal mais valorizado da TV aberta brasileira com a maior rede de midia exterior digital do pais -- abre caminho para pacotes cross-media (TV aberta + DOOH) vendidos de forma unificada, algo raro no mercado brasileiro.",
+     oportunidade:"Anunciantes de educacao, varejo, bancos e bens de consumo podem negociar cotas de patrocinio do formato cross-media TV + DOOH antes que o modelo se torne padrao de mercado.",
+     formato:"Patrocinio de conteudo cross-media / DOOH digital + TV aberta", periodo:"Em veiculacao -- agosto 2026",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"HIGH", anunciante:"Educacao; Varejo; Bancos; Bens de consumo",
+     acao:"Contatar comercial da Globo e da Eletromidia para entender o pacote conjunto e disponibilidade de cotas antes da replicacao do modelo por outros telejornais/redes.",
+     fonte:"Janela Publicitaria", dataFonte:"20/08/2026"},
+    {id:11, data:"19/08/2026", frente:"Esportes", propriedade:"Rally dos Sertoes 2026 - novo acordo de midia com Roxo Sports", veiculo:"Roxo Sports",
+     oQueAconteceu:"Sertoes 2026 (34a edicao, largada em Goiania) fecha acordo de transmissao com a Roxo Sports, com 60 horas de conteudo ao vivo via satelite e drones, alem de acoes vinculadas a educacao, saude e sustentabilidade nas comunidades do trajeto GO-BA-TO.",
+     porQueImporta:"Cria novo direito de transmissao para evento de motorsport de nicho com forte apelo editorial e plataforma ESG associada, ampliando o inventario disponivel para marcas que buscam associacao a pautas de sustentabilidade e educacao.",
+     oportunidade:"Marcas de seguros, agro, bancos e bens duraveis podem negociar cotas de patrocinio e ativacoes vinculadas ao conteudo ESG do evento.",
+     formato:"Patrocinio de transmissao / plataforma ESG / ativacao em porticos e camarotes", periodo:"Evento em agosto 2026 (Sertoes 2026)",
+     status:"Confirmado", estagio:"ANNOUNCED", prioridade:"MEDIUM", anunciante:"Seguros; Agro; Bancos; Bens duraveis",
+     acao:"Solicitar media kit da Roxo Sports e mapear cotas ainda disponiveis para a proxima edicao, aproveitando o case de Porto Seguro (patrocinador renovado) como referencia de ativacao.",
+     fonte:"Maquina do Esporte", dataFonte:"17-19/08/2026"},
+    {id:12, data:"17/08/2026", frente:"TV & Entretenimento", propriedade:"SBT 45 anos -- pacote comercial multiplataforma", veiculo:"SBT",
+     oQueAconteceu:"SBT lanca programacao especial de celebracao dos 45 anos da emissora (atracoes historicas e ineditas) rodando ao longo de agosto em TV aberta, streaming, YouTube e fast channels, com cotas especificas de patrocinio para marcas se associarem a efemeride.",
+     porQueImporta:"Formato pouco comum de 'aniversario de emissora' como gancho comercial multiplataforma, unificando TV aberta + digital + fast channels em um unico pacote -- boa janela de associacao institucional de marca.",
+     oportunidade:"Marcas que buscam associacao institucional e nostalgia (bancos, varejo, alimentos, bens de consumo) podem negociar selo comemorativo e presenca multiplataforma.",
+     formato:"Patrocinio de selo comemorativo / hub multiplataforma", periodo:"Ao longo de agosto de 2026",
+     status:"Em comercializacao", estagio:"COMMERCIALIZATION", prioridade:"MEDIUM", anunciante:"Bancos; Varejo; Alimentos; Bens de consumo",
+     acao:"Contatar comercial do SBT para conhecer o pacote de 45 anos e verificar cotas remanescentes ainda em agosto.",
+     fonte:"Propmark / AdNews", dataFonte:"17/08/2026"}
   ];
 
   var seedLog = [
+    {id:21, data:"28/08/2026", frente:"Esportes", movimento:"Globo negocia pacote adicional de ate 70 jogos da Libertadores para o SporTV no ciclo 2027-2030, somando-se aos direitos ja definidos no leilao da Conmebol (Globo na TV aberta + GE TV/YouTube; ESPN no pay TV, anunciado em dez/2025) -- indica que o inventario do novo ciclo ainda esta sendo fechado e pode abrir nova janela de cotas quando o pacote SporTV for confirmado.", fonte:"MKT Esportivo", dataFonte:"Ago/2026", virouOportunidade:"N"},
+    {id:20, data:"24/08/2026", frente:"Novos Players/AdTech", movimento:"Ofensiva regulatoria contra bets ganha novas frentes: PL 2972/26 propoe banimento total de apostas de quota fixa -- incluindo publicidade e patrocinio -- em todo o pais (22/08); PGR defende no STF que a lei do RS restringindo horario de anuncios de bets (21h-6h) e inconstitucional (18/08); Ministerio da Fazenda publica portarias exigindo selos de alerta obrigatorios em anuncios de bets, nos moldes de cigarros/bebidas. Reforca o risco regulatorio ja sinalizado no item de 21/08 sobre concentracao de bets nos patrocinios master do futebol, e conecta com o veto em estudo pela Globo no BBB 27.", fonte:"Diario Carioca / Yogonet Brasil / Correio Braziliense", dataFonte:"18-22/08/2026", virouOportunidade:"N"},
+    {id:19, data:"21/08/2026", frente:"TV & Entretenimento", movimento:"RedeTV volta a liberar plateia ao vivo no 'Superpop' (com Cariucha), sinalizando ajuste de estrategia de conteudo/audiencia da emissora dentro do reposicionamento de grade em 2026.", fonte:"Blog Baixada na Web", dataFonte:"17/08/2026", virouOportunidade:"N"},
+    {id:18, data:"21/08/2026", frente:"TV & Entretenimento", movimento:"Novela 'Quem Ama Cuida' bate recorde de audiencia com pico de 27,2 pontos no Ibope (Grande Sao Paulo), reforcando o valor comercial do horario nobre da Globo mesmo com as novas restricoes de merchandising.", fonte:"Ibope (via Oplaneta TV/Clickgratis)", dataFonte:"18/08/2026", virouOportunidade:"N"},
+    {id:17, data:"21/08/2026", frente:"Esportes", movimento:"Levantamento aponta casas de apostas concentrando os patrocinios master dos clubes brasileiros classificados as oitavas de Libertadores e Sul-Americana -- consolida bets como maior categoria de patrocinio no futebol nacional e reforca a pressao regulatoria sobre o setor.", fonte:"iGaming Brazil", dataFonte:"19/08/2026", virouOportunidade:"N"},
+    {id:16, data:"21/08/2026", frente:"TV & Entretenimento", movimento:"Globo passa a exigir merchandising mais organico em novelas apos excesso identificado em 'Vale Tudo'; em 'Quem Ama Cuida' (novela das 9) as insercoes comerciais precisam ter relacao mais natural com a trama, sem repetir anunciante no mesmo episodio e com acoes mais espacadas -- recalibra o valor e o volume do formato para os proximos ciclos de venda.", fonte:"O Tempo (via Diario do Centro do Mundo)", dataFonte:"18/08/2026", virouOportunidade:"N"},
+    {id:15, data:"17/08/2026", frente:"Novos Players/AdTech", movimento:"Estudo aponta crescimento de 50% em publicidade criada por influenciadores brasileiros; segmentos Automotivo (+177%), Tecnologia & IA (+138%) e Familia & Parentalidade (+81%) lideram o avanco entre marcas que investem em creator economy.", fonte:"Janela Publicitaria", dataFonte:"10/08/2026", virouOportunidade:"N"},
+    {id:14, data:"17/08/2026", frente:"OOH/DOOH", movimento:"IAB Brasil lanca edicao 2026 do Guia DOOH Programatico, atualizando modelos de negociacao (Programmatic Guaranteed, RTB), DCO e mensuracao de audiencia para o mercado brasileiro; producao do Grupo de Trabalho de DOOH com 22 profissionais de 17 empresas.", fonte:"Meio & Mensagem / PropMark / IAB Brasil", dataFonte:"Ago/2026", virouOportunidade:"N"},
+    {id:13, data:"17/08/2026", frente:"TV & Entretenimento", movimento:"Record avanca em tratativas para renovar a cota principal de patrocinio de A Fazenda 18 com a Betano (parceira desde 2020); assinatura prevista para inicio de agosto -- sinaliza que a cota master nao deve abrir vaga para novos entrantes na proxima temporada (estreia 14/09/2026, sem o Paiol nesta edicao).", fonte:"O Tempo", dataFonte:"29/07/2026", virouOportunidade:"N"},
+    {id:12, data:"14/08/2026", frente:"TV & Entretenimento", movimento:"+TV Forum 2026 (10a edicao) reuniu Globo, Claro, Sky, WBD, YouTube, TIM, Roku e outros em SP (12-13/08); Sky detalhou expansao para telecom com a nova marca Zaaz (banda larga fixa e telefonia movel nacional) e um painel debateu combate a pirataria como estrategia de recuperacao de receita.", fonte:"Tela Viva News / Teletime", dataFonte:"12/08/2026", virouOportunidade:"N"},
+    {id:11, data:"14/08/2026", frente:"Retail Media", movimento:"Brasil deve liderar o crescimento global de retail media pelo 3o ano consecutivo em 2026 (+38,4%, US$1,67 bi); In-Store Media Workshop Brasil (07/08) debateu mensuracao, computer vision e padronizacao de KPIs entre redes de retail media.", fonte:"Retail Media News / Mercado&Consumo", dataFonte:"07-10/08/2026", virouOportunidade:"N"},
+    {id:10, data:"14/08/2026", frente:"Gaming/E-sports", movimento:"NFA (organizadora de Free Fire competitivo) fechou patrocinio com a casa de apostas BetWarrior e confirmou investimento de +R$3 mi na temporada 2026, com 6 competicoes (incluindo NFA World e Liga das Americas) e 4 eventos presenciais no Brasil.", fonte:"Itatiaia / Mais Esports", dataFonte:"Ago/2026", virouOportunidade:"N"},
+    {id:9, data:"14/08/2026", frente:"OOH/DOOH", movimento:"Meio & Mensagem e Eletromidia relancaram o projeto OOH Connect, levando conteudo jornalistico e espaco publicitario para 136 pontos (paineis/telas) em 45 agencias pelo pais.", fonte:"Meio & Mensagem", dataFonte:"Ago/2026", virouOportunidade:"N"},
     {id:8, data:"10/08/2026", frente:"TV & Entretenimento", movimento:"+TV Forum 2026 (10a edicao, Tela Viva/Teletime) acontece em 12-13/08 em Sao Paulo reunindo executivos do setor para debater novos modelos de negocio de TV e conteudo -- evento tende a gerar anuncios de novos formatos e produtos comerciais ao longo da semana.", fonte:"Tela Viva News / Teletime", dataFonte:"04/08/2026", virouOportunidade:"N"},
     {id:7, data:"10/08/2026", frente:"Digital & Streaming/CTV", movimento:"Estudo da DoubleVerify aponta o Brasil na lideranca de crescimento de fraude em CTV na America Latina, entre as maiores altas do mundo ao lado de India e Vietna -- tema ganha repercussao as vesperas do +TV Forum.", fonte:"Tela Viva News", dataFonte:"31/07/2026", virouOportunidade:"N"},
     {id:1, data:"09/08/2026", frente:"Esportes", movimento:"Brasileirao 2026 consolida modelo fragmentado Libra x LFU ate 2029; Globo detem direitos nos dois blocos, LFU soma Record/Prime Video/Caze TV.", fonte:"O Tempo / Cassio Zirpoli", dataFonte:"28/01/2026", virouOportunidade:"N"},
@@ -195,13 +248,26 @@
   var seedWatchlist = [
     {id:1, assunto:"Data de abertura das cotas do BBB 27", frente:"TV & Entretenimento", observar:"Decisao da Globo sobre veto a bets ainda nao fechada.", gatilho:"Confirmacao oficial do veto e abertura do pacote comercial.", checagem:"Semanal"},
     {id:2, assunto:"Lancamento comercial do formato interativo Netflix no Brasil", frente:"Digital & Streaming/CTV", observar:"Testes em andamento no Brasil/Mexico; sem data oficial de lancamento comercial.", gatilho:"Anuncio de disponibilidade comercial no Brasil.", checagem:"Quinzenal"},
-    {id:3, assunto:"Fechamento do patrocinio do Paiol (A Fazenda)", frente:"TV & Entretenimento", observar:"Record so produz a dinamica se fechar patrocinador ate a estreia (14/09).", gatilho:"Anuncio de marca patrocinadora do Paiol.", checagem:"Semanal ate 14/09"},
-    {id:4, assunto:"Regulamentacao federal ampla de publicidade de bets", frente:"Novos Players/AdTech", observar:"Pressao regulatoria crescente pode afetar TV aberta como um todo, alem de realities.", gatilho:"Publicacao de nova norma ou projeto de lei aprovado.", checagem:"Quinzenal"}
+    {id:4, assunto:"Regulamentacao federal ampla de publicidade de bets", frente:"Novos Players/AdTech", observar:"Pressao regulatoria crescente pode afetar TV aberta como um todo, alem de realities; levantamento de 19/08 mostra bets ja dominando os patrocinios master das oitavas de Libertadores e Sul-Americana, aumentando a exposicao do setor ao risco regulatorio.", gatilho:"Publicacao de nova norma ou projeto de lei aprovado.", checagem:"Quinzenal"},
+    {id:5, assunto:"Fraude publicitaria em CTV no Brasil em alta", frente:"Digital & Streaming/CTV", observar:"Estudo DoubleVerify aponta Brasil entre os paises com maior crescimento de fraude em CTV na America Latina, pressionando por inventario verificado.", gatilho:"Publisher/CTV brasileiro anuncia parceria de verificacao (DV/IAS) ou anunciante reage publicamente ao tema.", checagem:"Quinzenal"},
+    {id:6, assunto:"Padronizacao de mensuracao em Retail Media", frente:"Retail Media", observar:"Satisfacao de anunciantes com retail media caiu de 77,8% (2023) para 54,7% (2025) por falta de padronizacao de metricas, mesmo com o Brasil liderando o crescimento global do setor.", gatilho:"Lancamento de padrao de mensuracao unico (ex.: IAB Brasil) ou ferramenta de comparacao entre redes de retail media.", checagem:"Mensal"},
+    {id:7, assunto:"Expansao da Sky para telecom movel (marca Zaaz)", frente:"Novos Players/AdTech", observar:"Sky lancou a marca Zaaz para banda larga fixa e anunciou entrada em telefonia movel nacional, ampliando de operadora de TV paga para telecom completa.", gatilho:"Anuncio de pacote combinado de midia (TV + mobile) ou bundle publicitario ligado a Zaaz.", checagem:"Mensal"},
+    {id:8, assunto:"Replicacao do modelo cross-media Globo-Eletromidia (TV + DOOH)", frente:"OOH/DOOH", observar:"Parceria 'JN nas Ruas' ainda e piloto de uma unica emissora/rede; nenhum concorrente anunciou formato similar ate agora.", gatilho:"Anuncio de outra emissora ou rede de DOOH fechando pacote cross-media parecido.", checagem:"Quinzenal"},
+    {id:9, assunto:"Impacto comercial das novas regras de merchandising da Globo em novelas", frente:"TV & Entretenimento", observar:"Regras mais restritivas (menos repeticao de anunciante, insercoes mais organicas) podem reduzir volume de acoes e elevar preco por insercao nos proximos ciclos de venda.", gatilho:"Divulgacao de novo racional comercial/tabela de precos da Globo para merchandising.", checagem:"Mensal"},
+    {id:10, assunto:"Pacote SporTV para Libertadores 2027-2030", frente:"Esportes", observar:"Globo negocia adicionar ate 70 jogos da Libertadores ao SporTV no novo ciclo definido pela Conmebol (Globo TV aberta + GE TV/YouTube + ESPN pay TV ja confirmados desde dez/2025).", gatilho:"Fechamento e anuncio oficial do pacote SporTV e abertura de cotas de patrocinio associadas.", checagem:"Mensal"}
   ];
 
   var seedOutlook = [
-    {id:1, timing:"Set/2026", propriedade:"A Fazenda 18 - Paiol", veiculo:"Record", oportunidade:"Patrocinio exclusivo da dinamica pre-estreia", formato:"Ativacao digital exclusiva", status:"Em comercializacao", prioridade:"MEDIUM", detalhe:"Why now: janela fecha em 14/09. What to do: propor marca de video curto/engajamento social. Risco: dinamica pode nao ser produzida se ninguem patrocinar."},
-    {id:2, timing:"4T 2026", propriedade:"BBB 27 - cota master", veiculo:"Rede Globo", oportunidade:"Possivel vacancia da cota de bets", formato:"Cota master / patrocinio de dinamicas", status:"Em negociacao", prioridade:"HIGH", detalhe:"Why now: decisao da Globo sobre veto a bets deve sair no 2S26. What to do: agendar reuniao com diretoria comercial. Risco: Globo pode manter bets se nao achar substituto a tempo."}
+    {id:1, timing:"Ago-Out/2026", propriedade:"Copa do Brasil 2026 - quartas e semifinais", veiculo:"Globo/Record/Amazon Prime Video (varia por jogo)", oportunidade:"Cotas de patrocinio e formatos comerciais na reta decisiva", formato:"Patrocinio de transmissao, cotas de VT, ativacao digital", status:"Confirmado", prioridade:"MEDIUM", detalhe:"Why now: jogos de ida das quartas ocorrem entre 25-27/08 e volta entre 01-03/09, com semifinais na sequencia rumo a final de 06/12 (fora da janela de 90 dias, mas a reta decisiva que movimenta cotas esta toda dentro dela). What to do: confirmar com os veiculos quais jogos da fase eliminatoria ainda tem cotas disponiveis. Risco: calendario pode sofrer ajustes da CBF; concorrencia por cotas aumenta conforme os classificados ficam definidos."},
+    {id:2, timing:"Set/2026", propriedade:"Rock in Rio 2026", veiculo:"Rock in Rio / TV Globo (transmissao)", oportunidade:"Patrocinio de palco e ativacoes de marca no evento", formato:"Naming rights de palco, ativacao experiencial, cota de transmissao", status:"Confirmado", prioridade:"HIGH", detalhe:"Why now: evento ocorre em dois fins de semana (04-07 e 11-13/09), com line-up internacional (Foo Fighters, Elton John, Maroon 5, Calvin Harris) e transmissao nacional. What to do: mapear com a organizacao e com a Globo cotas remanescentes de ativacao e cobertura digital/social. Risco: cotas principais de palco costumam estar fechadas com grandes marcas ha meses; espaco relevante esta em ativacoes satelites e digital."},
+    {id:3, timing:"Set/2026", propriedade:"A Fazenda 18", veiculo:"Record", oportunidade:"Cotas de patrocinio e merchandising da nova temporada", formato:"Cota master, patrocinio de dinamicas, product placement", status:"Em comercializacao", prioridade:"MEDIUM", detalhe:"Why now: estreia confirmada para 14/09, com fim do formato Paiol e nova estrutura de sede e provas, abrindo espaco para novos formatos de ativacao. What to do: solicitar media kit atualizado a Record e avaliar cotas de dinamicas ao vivo. Risco: patrocinadores da temporada ainda nao confirmados publicamente; janela de negociacao fecha na estreia."},
+    {id:4, timing:"Set/2026", propriedade:"NFL Brasil - Cowboys x Ravens", veiculo:"Maracana (RJ) / transmissao local a confirmar", oportunidade:"Patrocinio local e ativacoes no entorno do jogo internacional da NFL", formato:"Ativacao no entorno do estadio, cota de transmissao, conteudo digital/social", status:"Confirmado", prioridade:"HIGH", detalhe:"Why now: jogo confirmado para 27/09 no Maracana, terceira temporada seguida da NFL no Brasil e primeira vez no Rio de Janeiro. What to do: acionar contatos da NFL Brasil e dos veiculos de transmissao local para cotas de patrocinio e ativacao no entorno do evento. Risco: cotas internacionais da NFL costumam fechar com antecedencia; foco deve ser em ativacao local e conteudo ao redor do evento."},
+    {id:5, timing:"Set-Nov/2026", propriedade:"Retail Media - expansao CTV (Mercado Ads e concorrentes)", veiculo:"Mercado Livre Ads / demais Retail Media Networks", oportunidade:"Novo formato de topo de funil via CTV e streaming dentro de retail media", formato:"CTV ads, off-site, Intelligence Hub de mensuracao", status:"Anunciado", prioridade:"MEDIUM", detalhe:"Why now: Brasil deve liderar o crescimento global de retail media pela terceira vez em 2026 (US$ 1,67 bi), com o Mercado Ads migrando para uma plataforma full-funnel que inclui CTV e off-site. What to do: solicitar early access ao novo produto de CTV/off-site e testar com verba piloto no proximo trimestre. Risco: formato ainda em fase de expansao, sem case consolidado de mensuracao incremental no Brasil."},
+    {id:6, timing:"Out/2026", propriedade:"Brasileirao Serie A 2026 - reta final", veiculo:"Globo/Premiere/Amazon Prime Video", oportunidade:"Cotas de patrocinio na reta decisiva do campeonato", formato:"Cota de patrocinio de transmissao, native digital, cotas de rodada", status:"Confirmado", prioridade:"MEDIUM", detalhe:"Why now: o campeonato entra na reta final em outubro, com audiencia crescente conforme a definicao do titulo e do Z4 se aproxima. What to do: negociar cotas remanescentes de rodadas decisivas com os detentores de direitos. Risco: cotas dos confrontos de maior apelo (classicos, briga por titulo) tendem a esgotar rapido."},
+    {id:7, timing:"Out-Nov/2026", propriedade:"Libertadores 2026 - semifinal", veiculo:"Paramount+/SBT/Globo (varia por jogo)", oportunidade:"Cotas de patrocinio na fase semifinal rumo a final de 28/11 em Montevideu", formato:"Cota de transmissao, patrocinio de conteudo digital", status:"Em negociacao", prioridade:"MEDIUM", detalhe:"Why now: as quartas de final ocorrem em setembro e as semifinais na sequencia, com a final marcada para 28/11 no Centenario (Montevideu). What to do: mapear com antecedencia quais veiculos detem os direitos dos classificados brasileiros e avaliar cotas disponiveis. Risco: datas podem ser ajustadas pela CONMEBOL; direitos de transmissao ficam pulverizados entre veiculos dependendo dos classificados."},
+    {id:8, timing:"Nov/2026", propriedade:"F1 - GP de Sao Paulo (Interlagos)", veiculo:"Band/Interlagos/F1", oportunidade:"Ativacoes e cotas comerciais no fim de semana de corrida", formato:"Naming rights, ativacao de fan zone, patrocinio de transmissao", status:"Cotas vendidas", prioridade:"HIGH", detalhe:"Why now: corrida confirmada para 06-08/11 em Interlagos, com a MSC Cruises como patrocinadora master do GP de Sao Paulo 2026. What to do: buscar cotas secundarias de ativacao (fan zone, paddock club, conteudo digital) que ainda podem estar disponiveis via promotora local. Risco: cota master ja fechada; espaco relevante esta em ativacoes satelites e hospitality."},
+    {id:9, timing:"Nov/2026", propriedade:"Black Friday 2026", veiculo:"Multiplataforma (TV, digital, retail media, OOH)", oportunidade:"Planejamento de campanhas multi-canal para a data", formato:"Pacotes sazonais em retail media, CTV, OOH e digital", status:"Confirmado", prioridade:"MEDIUM", detalhe:"Why now: data confirmada para 27/11, com projecao de R$259,8 bi de faturamento no e-commerce em 2026 (+15,3%); o planejamento de midia comeca meses antes. What to do: fechar pacotes sazonais com varejistas e retail media networks ja em outubro, priorizando CTV e TikTok Shop. Risco: concorrencia por espaco publicitario se intensifica nas ultimas semanas, elevando CPMs."},
+    {id:10, timing:"4T 2026", propriedade:"BBB 27 - cota vaga de bets", veiculo:"Rede Globo", oportunidade:"Possivel vacancia de cota master apos veto a patrocinio de bets", formato:"Cota master / patrocinio de dinamicas do reality", status:"Em negociacao", prioridade:"HIGH", detalhe:"Why now: a Globo avalia proibir patrocinio de casas de apostas a partir da edicao de janeiro/2027, decisao que deve sair ainda no 4T/2026 antes do inicio pleno da comercializacao. What to do: agendar reuniao com a diretoria comercial da Globo para se posicionar como substituto da cota, dado historico de arrecadacao acima de R$1 bi. Risco: decisao final sobre o veto ainda nao esta fechada; a Globo pode manter bets se nao houver substituto viavel a tempo."}
   ];
 
   var state = { pipeline: null, log: null, watchlist: null, outlook: null, lastUpdate: null };
@@ -227,7 +293,7 @@
     state.log = await loadKey('radar_log', seedLog);
     state.watchlist = await loadKey('radar_watchlist', seedWatchlist);
     state.outlook = await loadKey('radar_outlook', seedOutlook);
-    var lu = await loadKey('radar_lastupdate', {v:"10/08/2026"});
+    var lu = await loadKey('radar_lastupdate', {v:"28/08/2026"});
     state.lastUpdate = lu.v || lu;
 
     document.getElementById('rd-lastupdate').value = state.lastUpdate;
@@ -462,18 +528,8 @@
     searchBox.value = pipelineFilters.search;
     searchBox.addEventListener('input', function(){ pipelineFilters.search = searchBox.value; renderPipelineList(listWrap); });
 
-    var addBtn = el('button', {class:'primary', text:'+ Nova oportunidade'});
-    addBtn.addEventListener('click', function(){
-      var item = {id:uid(), data:new Date().toLocaleDateString('pt-BR'), frente:FRENTES[0], propriedade:'Nova oportunidade', veiculo:'',
-        oQueAconteceu:'', porQueImporta:'', oportunidade:'', formato:'', periodo:'', status:'Rumor', estagio:'EARLY SIGNAL', prioridade:'MEDIUM',
-        anunciante:'', acao:'', fonte:'', dataFonte:''};
-      state.pipeline.unshift(item);
-      saveKey('radar_pipeline', state.pipeline);
-      renderTab('pipeline');
-    });
-
     toolbar.appendChild(frenteFilter); toolbar.appendChild(prioFilter); toolbar.appendChild(statusFilter);
-    toolbar.appendChild(searchBox); toolbar.appendChild(addBtn);
+    toolbar.appendChild(searchBox);
     body.appendChild(toolbar);
 
     var listWrap = el('div', {});
@@ -567,16 +623,6 @@
   function renderDashboardIfActive(){ if(activeTab==='dashboard') renderTab('dashboard'); }
 
   function renderLog(body){
-    var toolbar = el('div', {class:'rd-toolbar-end', style:{display:'flex', justifyContent:'flex-end', marginBottom:'14px'}});
-    var addBtn = el('button', {class:'primary', text:'+ Novo movimento'});
-    addBtn.addEventListener('click', function(){
-      state.log.unshift({id:uid(), data:new Date().toLocaleDateString('pt-BR'), frente:FRENTES[0], movimento:'', fonte:'', dataFonte:'', virouOportunidade:'N'});
-      saveKey('radar_log', state.log);
-      renderTab('log');
-    });
-    toolbar.appendChild(addBtn);
-    body.appendChild(toolbar);
-
     state.log.forEach(function(item){
       var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'12px 16px', marginBottom:'10px'}});
       var head = el('div', {style:{display:'flex', justifyContent:'space-between', gap:'10px', marginBottom:'8px'}});
@@ -604,16 +650,6 @@
   }
 
   function renderWatchlist(body){
-    var toolbar = el('div', {class:'rd-toolbar-end', style:{display:'flex', justifyContent:'flex-end', marginBottom:'14px'}});
-    var addBtn = el('button', {class:'primary', text:'+ Novo item'});
-    addBtn.addEventListener('click', function(){
-      state.watchlist.unshift({id:uid(), assunto:'Novo assunto', frente:FRENTES[0], observar:'', gatilho:'', checagem:'Semanal'});
-      saveKey('radar_watchlist', state.watchlist);
-      renderTab('watchlist');
-    });
-    toolbar.appendChild(addBtn);
-    body.appendChild(toolbar);
-
     state.watchlist.forEach(function(item){
       var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px', marginBottom:'12px'}});
       var head = el('div', {style:{display:'flex', justifyContent:'space-between', gap:'10px', marginBottom:'6px'}});
@@ -644,16 +680,6 @@
   }
 
   function renderOutlook(body){
-    var toolbar = el('div', {class:'rd-toolbar-end', style:{display:'flex', justifyContent:'flex-end', marginBottom:'14px'}});
-    var addBtn = el('button', {class:'primary', text:'+ Nova oportunidade (90d)'});
-    addBtn.addEventListener('click', function(){
-      state.outlook.unshift({id:uid(), timing:'', propriedade:'Nova oportunidade', veiculo:'', oportunidade:'', formato:'', status:'Rumor', prioridade:'MEDIUM', detalhe:''});
-      saveKey('radar_outlook', state.outlook);
-      renderTab('outlook');
-    });
-    toolbar.appendChild(addBtn);
-    body.appendChild(toolbar);
-
     state.outlook.forEach(function(item){
       var card = el('div', {style:{background:'var(--ink-800)', border:'1px solid var(--ink-700)', borderRadius:'10px', padding:'14px 16px', marginBottom:'12px'}});
       var head = el('div', {style:{display:'flex', justifyContent:'space-between', gap:'10px', marginBottom:'8px'}});
@@ -747,3 +773,6 @@
 
 </body>
 </html>
+
+
+</body></html>
