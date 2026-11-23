@@ -123,6 +123,14 @@
   var PRIORITIES = ["HIGH","MEDIUM","LOW"];
 
   var seedPipeline = [
+    {id:44, data:"23/11/2026", frente:"Esportes", propriedade:"Coca-Cola patrocina o primeiro show de intervalo da historia da final da Libertadores -- apresentacao de Pedro Sampaio na decisao Palmeiras x Estudiantes (28/11, Montevideu)", veiculo:"Conmebol Libertadores / Coca-Cola",
+     oQueAconteceu:"A Conmebol anunciou em 19/11/2026 que a final da Libertadores 2026 (Palmeiras x Estudiantes, 28/11, Estadio Centenario, Montevideu) tera o primeiro show de intervalo da historia do torneio -- o 'CONMEBOL Libertadores Halftime Show, presented by Coca-Cola', com apresentacao de cerca de 7 minutos dos 15 minutos de intervalo pelo cantor brasileiro Pedro Sampaio. A Coca-Cola tambem promove uma acao de cadastro no site oficial da campanha, com sorteio da bola oficial da final entre os participantes.",
+     porQueImporta:"Cria um formato comercial inedito de patrocinio esportivo na America do Sul (halftime show nos moldes de Super Bowl/Champions League) dentro da maior final de clubes do continente -- a cota de apresentacao do show ja foi fechada com a Coca-Cola, mas a repercussao da semana de decisao em Montevideu abre uma janela curta para ativacoes locais, hospitality e cobertura editorial de outras marcas antes do jogo de 28/11.",
+     oportunidade:"Marcas de bebidas (fora da categoria ja fechada com a Coca-Cola), turismo, bancos e varejo podem negociar ativacoes locais/hospitality e cobertura editorial ligadas a semana da final da Libertadores em Montevideu, aproveitando a repercussao do primeiro halftime show do torneio.",
+     formato:"Patrocinio de halftime show (formato inedito) / ativacao local e hospitality / cobertura editorial paga", periodo:"Final em 28/11/2026 (Estadio Centenario, Montevideu); janela de ativacao nesta semana",
+     status:"Cotas vendidas", estagio:"SOLD", prioridade:"MEDIUM", anunciante:"Bebidas (fora de Coca-Cola); Turismo; Bancos; Varejo",
+     acao:"Contatar a Conmebol e veiculos especializados (Maquina do Esporte, Meio & Mensagem) para mapear ativacoes locais/hospitality remanescentes antes do jogo de 28/11 em Montevideu; monitorar a repercussao do halftime show como benchmark de formato para decisoes futuras (Sul-Americana, Recopa).",
+     fonte:"Meio & Mensagem / Ohoje / Primicias", dataFonte:"19/11/2026"},
     {id:43, data:"20/11/2026", frente:"Esportes", propriedade:"ESPN/Disney abre comercializacao das cotas de futebol nacional 2027 (incluindo a Serie B do Brasileirao), apos fechar a renovacao prioritaria das cotas de tenis e futebol internacional em 13/11", veiculo:"ESPN / Disney+",
      oQueAconteceu:"A ESPN lancou no mercado, em 16/10/2026, as cotas de patrocinio de tenis e futebol internacional, dando aos detentores atuais prioridade de renovacao até 13/11/2026 -- prazo que ja se encerrou. Na sequencia, a emissora passa a comercializar em novembro as cotas do futebol nacional para 2027, incluindo a Serie B do Campeonato Brasileiro (ESPN/Disney+/RedeTV/Kwai/Desimpedidos transmitem a competicao).",
      porQueImporta:"Abre uma nova janela de comercializacao de patrocinio em pay TV/streaming de futebol nacional logo na sequencia do fechamento da prioridade de renovacao de tenis -- momento de menor concorrencia antes que os detentores atuais (muitos ainda bets, ver Pipeline id27/28) sejam substituidos ou renovados.",
@@ -470,6 +478,7 @@
   ];
 
   var seedLog = [
+    {id:82, data:"23/11/2026", frente:"Esportes", movimento:"Conmebol e Coca-Cola anunciaram, em 19/11/2026, o primeiro show de intervalo da historia da final da Libertadores -- apresentacao do cantor Pedro Sampaio na decisao Palmeiras x Estudiantes (28/11, Estadio Centenario, Montevideu), dentro do 'CONMEBOL Libertadores Halftime Show, presented by Coca-Cola' -- ver oportunidade criada no Pipeline id44.", fonte:"Meio & Mensagem / Ohoje / Primicias", dataFonte:"19/11/2026", virouOportunidade:"S"},
     {id:81, data:"20/11/2026", frente:"TV & Entretenimento", movimento:"Coluna 'Outro Canal' (Folha de S.Paulo) revela que a Globo prepara novo manual de publicidade para o BBB 27 (estreia 08/01/2027) que pode vetar bets como patrocinadoras do programa -- a Cif (Unilever) ja renovou cota para a nova temporada e a emissora avalia que o resultado comercial do reality nao deve ser impactado mesmo com a restricao. Conecta-se a vacancia de patrocinio master no futebol (Pipeline id27/28/29/31/33) e a incerteza regulatoria sobre bets acompanhada na Watchlist id20, agora atualizada.", fonte:"Folha de S.Paulo (Outro Canal) / Correio24Horas", dataFonte:"Nov/2026", virouOportunidade:"N"},
     {id:80, data:"20/11/2026", frente:"TV & Entretenimento", movimento:"A Petra renovou, em 10/11/2026, o patrocinio master do Camarote Salvador até 2030, com presenca garantida no palco principal e nos bares do evento -- renovacao plurianual de uma das maiores propriedades comerciais do Carnaval de Salvador, sem abertura de cotas remanescentes divulgada.", fonte:"Meio & Mensagem", dataFonte:"10/11/2026", virouOportunidade:"N"},
     {id:79, data:"16/11/2026", frente:"Novos Players/AdTech", movimento:"Associacao Patrocinio Brasil (APBR) divulgou os vencedores do II Premio Patrocinio Brasil: Rally dos Sertoes (com a Mitsubishi Motors) venceu Melhor Patrocinio do Ano; NFL Brasil foi eleita Detentora de Direitos do Ano; Comite Olimpico do Brasil + Adidas levou Melhor Patrocinio Estreante; e a Caixa Economica Federal foi a Patrocinadora Homenageada -- premiacao reuniu 193 inscricoes nesta edicao e funciona como termometro de benchmarks de patrocinio no mercado brasileiro.", fonte:"Propmark", dataFonte:"Nov/2026", virouOportunidade:"N"},
@@ -612,7 +621,7 @@
     state.log = await loadKey('radar_log', seedLog);
     state.watchlist = await loadKey('radar_watchlist', seedWatchlist);
     state.outlook = await loadKey('radar_outlook', seedOutlook);
-    var lu = await loadKey('radar_lastupdate', {v:"20/11/2026"});
+    var lu = await loadKey('radar_lastupdate', {v:"23/11/2026"});
     state.lastUpdate = lu.v || lu;
 
     document.getElementById('rd-lastupdate').value = state.lastUpdate;
